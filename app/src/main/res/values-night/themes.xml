@@ -17,7 +17,7 @@
     <style name="MyTabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabSelectedTextColor">@color/black</item>
         <item name="tabTextColor">@color/white</item>
-        <item name="tabTextAppearance">@style/TabItemTextAppearance</item>
+        <item name="tabTextAppearance">@style/MainTextAppearance</item>
 
         <item name="tabIndicator">@drawable/rounded_rect</item>
         <item name="tabIndicatorColor">@color/white</item>
@@ -28,10 +28,10 @@
         <item name="android:backgroundTint">@color/dark_gray</item>
     </style>
 
-    <style name="TabItemTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">18sp</item>
+    <style name="MainTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
@@ -44,7 +44,32 @@
     </style>
 
     <style name="IconBackground">
-        <item name="background">@color/white</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="TextMain" parent="Widget.AppCompat.TextView">
+        <item name="android:textAppearance">@style/MainTextAppearance</item>
+    </style>
+
+    <style name="MyButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textAppearance">@style/MainTextAppearance</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="InputText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:textAppearance">@style/MainTextAppearance</item>
+    </style>
+
+    <style name="EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textAppearance">@style/MainTextAppearance</item>
+    </style>
+
+    <style name="Switch" parent="TextAppearance.AppCompat.Widget.Switch">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textAppearance">@style/MainTextAppearance</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>

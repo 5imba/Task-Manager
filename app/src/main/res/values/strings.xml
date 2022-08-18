@@ -21,4 +21,6 @@
     <string name="tags">Tags</string>
     <string name="set_complete">Set Complete</string>
     <string name="tags_input_hint">tags_input_hint</string>
+    <string name="add_task">Add Task</string>
+    <string name="save_task">Save Task</string>
 </resources>

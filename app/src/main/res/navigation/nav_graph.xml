@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/taskList"
-        android:name="com.bogleo.taskmanager.screens.TaskListFragment"
+        android:name="com.bogleo.taskmanager.screens.tasklist.TaskListFragment"
         android:label="@string/task_list"
         tools:layout="@layout/fragment_task_list">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/taskView"
-        android:name="com.bogleo.taskmanager.screens.TaskViewFragment"
+        android:name="com.bogleo.taskmanager.screens.taskview.TaskViewFragment"
         android:label="@string/task_view"
         tools:layout="@layout/fragment_task_view">
         <action
@@ -28,12 +28,12 @@
     </fragment>
     <fragment
         android:id="@+id/taskEditFragment"
-        android:name="com.bogleo.taskmanager.screens.TaskEditFragment"
+        android:name="com.bogleo.taskmanager.screens.taskedit.TaskEditFragment"
         android:label="@string/task_edit"
         tools:layout="@layout/fragment_task_edit" />
     <fragment
         android:id="@+id/taskAddNewFragment"
-        android:name="com.bogleo.taskmanager.screens.TaskAddNewFragment"
+        android:name="com.bogleo.taskmanager.screens.taskaddnew.TaskAddNewFragment"
         android:label="@string/add_new_task"
         tools:layout="@layout/fragment_task_add_new" />
 </navigation>

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.TaskListFragment">
+    tools:context=".screens.tasklist.TaskListFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/completion_tabs_tl"
         style="@style/MyTabLayout"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_margin="20dp"
         android:contentDescription="@string/completion_tabs"
         app:layout_constraintEnd_toEndOf="parent"

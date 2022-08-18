@@ -1,22 +1,22 @@
-package com.bogleo.taskmanager.screens
+package com.bogleo.taskmanager.screens.taskedit
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bogleo.taskmanager.databinding.FragmentTaskAddNewBinding
+import com.bogleo.taskmanager.databinding.FragmentTaskEditBinding
 
-class TaskAddNewFragment : Fragment() {
+class TaskEditFragment : Fragment() {
 
-    private var _binding: FragmentTaskAddNewBinding? = null
+    private var _binding: FragmentTaskEditBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTaskAddNewBinding.inflate(inflater, container, false)
+        _binding = FragmentTaskEditBinding.inflate(inflater, container, false)
         return binding.root
     }
 

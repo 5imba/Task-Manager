@@ -1,6 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.TaskEditFragment"/>
+    android:padding="24dp"
+    tools:context=".screens.taskedit.TaskEditFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/taskTitleTextInputTe"
+        style="@style/InputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/taskTitleEditTextTe"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_title"
+            android:minHeight="48dp"
+            android:paddingEnd="40dp"
+            tools:ignore="RtlSymmetry,TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/colorTagImageTe"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/color_tag"
+        android:focusable="true"
+        android:src="@drawable/ic_circle_fill"
+        app:layout_constraintBottom_toBottomOf="@+id/taskTitleTextInputTe"
+        app:layout_constraintEnd_toEndOf="@+id/taskTitleTextInputTe"
+        app:layout_constraintTop_toTopOf="@+id/taskTitleTextInputTe"
+        app:tint="@color/teal_200"
+        tools:ignore="ImageContrastCheck" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/deadlineTextInputTe"
+        style="@style/InputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taskTitleTextInputTe">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/deadlineEditTextTe"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/deadline"
+            android:minHeight="48dp"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/timeImageTe"
+        style="@style/IconTint"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/time"
+        android:src="@drawable/ic_clock"
+        app:layout_constraintBottom_toBottomOf="@+id/deadlineTextInputTe"
+        app:layout_constraintEnd_toEndOf="@+id/deadlineTextInputTe"
+        app:layout_constraintTop_toTopOf="@+id/deadlineTextInputTe"
+        app:layout_constraintVertical_bias="0.583" />
+
+    <LinearLayout
+        android:id="@+id/pickersLinearLayoutTe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deadlineTextInputTe">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <DatePicker
+                android:id="@+id/datePickerTe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="-30dp"
+                android:layout_marginEnd="-30dp"
+                android:layout_weight="1"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <android.widget.TimePicker
+                android:id="@+id/timePickerTe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="-30dp"
+                android:layout_marginEnd="-30dp"
+                android:layout_weight="1"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:timePickerMode="spinner"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tagsTextInputTe"
+        style="@style/InputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pickersLinearLayoutTe">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tagsEditTextTe"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/tags"
+            android:minHeight="48dp"
+            tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/tagsImageTe"
+        style="@style/IconTint"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/tags"
+        android:src="@drawable/ic_tags"
+        app:layout_constraintBottom_toBottomOf="@+id/tagsTextInputTe"
+        app:layout_constraintEnd_toEndOf="@+id/tagsTextInputTe"
+        app:layout_constraintTop_toTopOf="@+id/tagsTextInputTe" />
+
+    <Switch
+        android:id="@+id/setCompletionSwitchTe"
+        style="@style/Switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="24dp"
+        android:checked="false"
+        android:minHeight="48dp"
+        android:text="@string/set_complete"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tagsTextInputTe"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <Button
+        android:id="@+id/saveTaskBtnTe"
+        style="@style/MyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="@string/save_task"
+        android:textAllCaps="false"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

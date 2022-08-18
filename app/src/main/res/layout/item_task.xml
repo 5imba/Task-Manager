@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/containerConstraintTi"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    android:layout_marginBottom="24dp"
+    android:background="@drawable/rounded_rect"
+    android:backgroundTint="@android:color/holo_green_light">
+
+    <ImageView
+        android:id="@+id/taskEditImageTi"
+        style="@style/IconTint"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:contentDescription="@string/task_is_done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_edit" />
+
+    <ImageView
+        android:id="@+id/taskStateImageTi"
+        style="@style/IconTint"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/task_is_done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_circle_empty" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tagsRecyclerTi"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:layout_constraintEnd_toEndOf="@+id/task_content"
+            app:layout_constraintStart_toStartOf="@+id/task_content"
+            app:layout_constraintTop_toTopOf="@+id/task_content" />
+
+        <TextView
+            android:id="@+id/taskTitleTextTi"
+            style="@style/TextMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|start"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/task_title"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="@+id/task_content"
+            app:layout_constraintStart_toStartOf="@+id/task_content"
+            app:layout_constraintTop_toBottomOf="@+id/tagsRecyclerTi" />
+
+        <TextView
+            android:id="@+id/dateTextTi"
+            style="@style/TextMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
+            android:text="@string/date"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_calendar"
+            app:layout_constraintBottom_toBottomOf="@+id/dateImageTi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dateImageTi"
+            app:layout_constraintTop_toTopOf="@+id/dateImageTi" />
+
+        <TextView
+            android:id="@+id/timeTextTi"
+            style="@style/TextMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
+            android:text="@string/time"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_clock"
+            app:layout_constraintBottom_toBottomOf="@+id/timeImageTi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/timeImageTi"
+            app:layout_constraintTop_toTopOf="@+id/timeImageTi" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
