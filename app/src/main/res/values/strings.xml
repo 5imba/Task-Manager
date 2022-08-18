@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">TaskManager</string>
+    <string name="title_activity_tasks">TasksActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="task_list">Task List</string>
+    <string name="task_view">Task View</string>
+    <string name="task_edit">Edit Task</string>
+
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="unfulfilled">Unfulfilled</string>
+    <string name="task_is_done">Task Is Done</string>
+    <string name="completed">Completed</string>
+    <string name="add_new_task">Add New Task</string>
+    <string name="completion_tabs">Completion tabs</string>
+    <string name="task_title">Task Title</string>
+    <string name="color_tag">Color Tag</string>
+    <string name="deadline">Deadline</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="tags">Tags</string>
+    <string name="set_complete">Set Complete</string>
+    <string name="tags_input_hint">tags_input_hint</string>
+</resources>
