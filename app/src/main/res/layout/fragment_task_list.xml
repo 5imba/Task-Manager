@@ -7,7 +7,7 @@
     tools:context=".screens.tasklist.TaskListFragment">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/completion_tabs_tl"
+        android:id="@+id/completionTabLayoutTl"
         style="@style/MyTabLayout"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -31,14 +31,14 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/tasks_view_pager"
+        android:id="@+id/viewPagerTl"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/completion_tabs_tl" >
+        app:layout_constraintTop_toBottomOf="@+id/completionTabLayoutTl">
 
     </androidx.viewpager2.widget.ViewPager2>
 
@@ -51,7 +51,7 @@
         android:clickable="true"
         android:contentDescription="@string/add_new_task"
         android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toBottomOf="@+id/tasks_view_pager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
 

@@ -10,7 +10,7 @@ interface TaskDao {
     suspend fun addTask(task: Task): Long
 
     @Update
-    suspend fun editTask(task: Task)
+    suspend fun updateTask(task: Task)
 
     @Delete
     suspend fun deleteTask(task: Task)

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_taskList_to_taskAddNewFragment"
             app:destination="@id/taskAddNewFragment" />
+        <action
+            android:id="@+id/action_taskList_to_taskEditFragment"
+            app:destination="@id/taskEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/taskView"
@@ -25,6 +28,9 @@
         <action
             android:id="@+id/action_taskView_to_taskEditFragment"
             app:destination="@id/taskEditFragment" />
+        <argument
+            android:name="task"
+            app:argType="com.bogleo.taskmanager.data.Task" />
     </fragment>
     <fragment
         android:id="@+id/taskEditFragment"
@@ -35,5 +41,9 @@
         android:id="@+id/taskAddNewFragment"
         android:name="com.bogleo.taskmanager.screens.taskaddnew.TaskAddNewFragment"
         android:label="@string/add_new_task"
-        tools:layout="@layout/fragment_task_add_new" />
+        tools:layout="@layout/fragment_task_add_new" >
+        <action
+            android:id="@+id/action_taskAddNewFragment_to_taskList"
+            app:destination="@id/taskList" />
+    </fragment>
 </navigation>

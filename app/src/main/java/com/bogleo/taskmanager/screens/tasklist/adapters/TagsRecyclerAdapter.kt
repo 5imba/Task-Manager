@@ -1,5 +1,6 @@
-package com.bogleo.taskmanager.screens.tasklist
+package com.bogleo.taskmanager.screens.tasklist.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ class TagsRecyclerAdapter: RecyclerView.Adapter<TagsRecyclerAdapter.MyViewHolder
     }
 
     // TODO create data insert/delete/updated system
+    @SuppressLint("NotifyDataSetChanged")
     override fun onDataChange(data: List<String>) {
         this.tagsList = data
         notifyDataSetChanged()

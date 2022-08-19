@@ -23,4 +23,14 @@
     <string name="tags_input_hint">tags_input_hint</string>
     <string name="add_task">Add Task</string>
     <string name="save_task">Save Task</string>
+
+    <string name="color_tag_yellow">Color Tag Yellow</string>
+    <string name="color_tag_green">Color Tag Green</string>
+    <string name="color_tag_light_blue">Color Tag Light Blue</string>
+    <string name="color_tag_blue">Color Tag Blue</string>
+    <string name="color_tag_red">Color Tag Red</string>
+    <string name="color_tag_orange">Color Tag Orange</string>
+    <string name="color_tag_light_purple">Color Tag Light Purple</string>
+    <string name="color_tag_purple">Color Tag Purple</string>
+
 </resources>

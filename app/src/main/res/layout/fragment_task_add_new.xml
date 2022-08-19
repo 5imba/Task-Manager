@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    tools:context=".screens.taskedit.TaskEditFragment">
+    tools:context=".screens.taskaddnew.TaskAddNewFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/taskTitleTextInputAn"
@@ -22,6 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/task_title"
+            android:imeOptions="actionNext"
+            android:inputType="textImeMultiLine"
             android:minHeight="48dp"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -56,15 +58,27 @@
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:cursorVisible="false"
             android:hint="@string/deadline"
+            android:imeOptions="actionNext"
+            android:inputType="datetime"
             android:minHeight="48dp"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <FrameLayout
+        android:id="@+id/deadlineFrameContainerAn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/deadlineTextInputAn"
+        app:layout_constraintEnd_toEndOf="@+id/deadlineTextInputAn"
+        app:layout_constraintStart_toStartOf="@+id/deadlineTextInputAn"
+        app:layout_constraintTop_toTopOf="@+id/deadlineTextInputAn" />
+
     <ImageView
         android:id="@+id/timeImageAn"
-        style="@style/IconTint"
+        style="@style/ImageTint"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="10dp"
@@ -101,8 +115,6 @@
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner"
                 android:ems="10"
-                android:focusable="false"
-                android:inputType="date"
                 android:scaleX="0.7"
                 android:scaleY="0.7"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -125,8 +137,6 @@
                 android:layout_marginEnd="-30dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:focusable="false"
-                android:inputType="date"
                 android:scaleX="0.7"
                 android:scaleY="0.7"
                 android:timePickerMode="spinner"
@@ -154,13 +164,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tags"
+            android:imeOptions="actionDone"
+            android:inputType="textImeMultiLine"
             android:minHeight="48dp"
             tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
         android:id="@+id/tagsImageAn"
-        style="@style/IconTint"
+        style="@style/ImageTint"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="10dp"

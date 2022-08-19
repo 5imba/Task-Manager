@@ -22,9 +22,9 @@ class TasksViewModel @Inject constructor(
         return repository.addTask(task)
     }
 
-    fun editTask(task: Task){
+    fun updateTask(task: Task){
         viewModelScope.launch(Dispatchers.IO) {
-            repository.editTask(task)
+            repository.updateTask(task)
         }
     }
 

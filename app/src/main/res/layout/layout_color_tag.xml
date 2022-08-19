@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Popup"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:layout_marginEnd="20dp"
+    android:background="@drawable/rounded_rect"
+    android:elevation="5dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:ignore="RtlSymmetry">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+
+        <ImageView
+            android:id="@+id/imageColorTag1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/color_tag_yellow"
+            app:srcCompat="@drawable/ic_circle_fill"
+            app:tint="@color/yellow"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/imageColorTag2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/color_tag_green"
+            android:foregroundTint="@color/white"
+            app:srcCompat="@drawable/ic_circle_fill"
+            app:tint="@color/green"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/imageColorTag3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/color_tag_light_blue"
+            app:srcCompat="@drawable/ic_circle_fill"
+            app:tint="@color/light_blue"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/imageColorTag4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/color_tag_light_purple"
+            app:srcCompat="@drawable/ic_circle_fill"
+            app:tint="@color/light_purple"
+            tools:ignore="ImageContrastCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+
+        <ImageView
+            android:id="@+id/imageColorTag5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/color_tag_red"
+            app:srcCompat="@drawable/ic_circle_fill"
+            app:tint="@color/red" />
+
+        <ImageView
+            android:id="@+id/imageColorTag6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/color_tag_orange"
+            app:srcCompat="@drawable/ic_circle_fill"
+            app:tint="@color/orange"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/imageColorTag7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/color_tag_blue"
+            app:srcCompat="@drawable/ic_circle_fill"
+            app:tint="@color/blue" />
+
+        <ImageView
+            android:id="@+id/imageColorTag8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/color_tag_purple"
+            app:srcCompat="@drawable/ic_circle_fill"
+            app:tint="@color/purple" />
+    </LinearLayout>
+</LinearLayout>

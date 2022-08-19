@@ -48,7 +48,7 @@
 
     <View
         android:id="@+id/viewSeparatorTv1"
-        style="@style/IconBackground"
+        style="@style/ImageBackground"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +88,7 @@
 
     <ImageView
         android:id="@+id/dateImageTv"
-        style="@style/IconTint"
+        style="@style/ImageTint"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="4dp"
@@ -122,7 +122,7 @@
 
     <ImageView
         android:id="@+id/timeImageTv"
-        style="@style/IconTint"
+        style="@style/ImageTint"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="4dp"
@@ -134,7 +134,7 @@
 
     <View
         android:id="@+id/viewSeparatorTv2"
-        style="@style/IconBackground"
+        style="@style/ImageBackground"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +172,7 @@
 
     <ImageView
         android:id="@+id/tagsImageTv"
-        style="@style/IconTint"
+        style="@style/ImageTint"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="4dp"

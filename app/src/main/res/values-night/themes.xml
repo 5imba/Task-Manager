@@ -39,12 +39,16 @@
         <item name="backgroundTint">@color/white</item>
     </style>
 
-    <style name="IconTint">
+    <style name="ImageTint">
         <item name="tint">@color/white</item>
     </style>
 
-    <style name="IconBackground">
+    <style name="ImageBackground">
         <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="Popup">
+        <item name="android:backgroundTint">@color/black</item>
     </style>
 
     <style name="TextMain" parent="Widget.AppCompat.TextView">
