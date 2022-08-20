@@ -28,6 +28,12 @@ class TasksViewModel @Inject constructor(
         }
     }
 
+    fun switchTaskState(task: Task) {
+        val newTask = Task(id = task.id, title = task.title, date = task.date, time = task.time,
+            tags = task.tags, colorTag = task.colorTag, isDone = !task.isDone)
+        updateTask(task = newTask)
+    }
+
     fun deleteTask(task: Task){
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteTask(task)

@@ -31,12 +31,22 @@
         <argument
             android:name="task"
             app:argType="com.bogleo.taskmanager.data.Task" />
+        <action
+            android:id="@+id/action_taskView_to_taskList"
+            app:destination="@id/taskList" />
     </fragment>
     <fragment
         android:id="@+id/taskEditFragment"
         android:name="com.bogleo.taskmanager.screens.taskedit.TaskEditFragment"
         android:label="@string/task_edit"
-        tools:layout="@layout/fragment_task_edit" />
+        tools:layout="@layout/fragment_task_edit" >
+        <action
+            android:id="@+id/action_taskEditFragment_to_taskList"
+            app:destination="@id/taskList" />
+        <argument
+            android:name="task"
+            app:argType="com.bogleo.taskmanager.data.Task" />
+    </fragment>
     <fragment
         android:id="@+id/taskAddNewFragment"
         android:name="com.bogleo.taskmanager.screens.taskaddnew.TaskAddNewFragment"

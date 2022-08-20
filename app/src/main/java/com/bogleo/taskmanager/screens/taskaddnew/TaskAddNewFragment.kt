@@ -46,7 +46,7 @@ class TaskAddNewFragment : Fragment() {
             binding.deadlineEditTextAn.requestFocus()
         }
 
-        binding.addTaskBtnAn.setOnClickListener { addTaskToDB() }
+        binding.addTaskBtnAn.setOnClickListener { addTask() }
 
         binding.deadlineEditTextAn.setOnFocusChangeListener { _, isFocused ->
             setDeadlinePickersVisibility(isFocused = isFocused)
@@ -94,7 +94,7 @@ class TaskAddNewFragment : Fragment() {
         }
     }
 
-    private fun addTaskToDB() {
+    private fun addTask() {
         val date = Utils.makeDateString(binding.datePickerAn)
         val time = Utils.makeTimeString(binding.timePickerAn)
 

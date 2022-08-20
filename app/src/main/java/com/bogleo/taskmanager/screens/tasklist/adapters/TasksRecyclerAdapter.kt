@@ -48,7 +48,7 @@ class TasksRecyclerAdapter @Inject constructor() :
         notifyDataSetChanged()
     }
 
-    private fun changeTaskStateChange(position: Int) {
+    private fun changeTaskState(position: Int) {
         val task = taskList[position]
         val newTask = Task(id = task.id, title = task.title, date = task.date, time = task.time,
             tags = task.tags, colorTag = task.colorTag, isDone = !task.isDone)
@@ -87,7 +87,7 @@ class TasksRecyclerAdapter @Inject constructor() :
     private fun bindButtons(holder: MyViewHolder, position: Int) {
         // Switch task state
         holder.taskStateImageView.setOnClickListener {
-            changeTaskStateChange(position = position)
+            changeTaskState(position = position)
         }
 
         // Navigate to view task
@@ -104,7 +104,8 @@ class TasksRecyclerAdapter @Inject constructor() :
         // Navigate to edit task
         holder.taskEditImageView.setOnClickListener {
             try {
-                val action = TaskListFragmentDirections.actionTaskListToTaskEditFragment()
+                val action = TaskListFragmentDirections
+                    .actionTaskListToTaskEditFragment(task = taskList[position])
                 holder.itemView.findNavController().navigate(action)
             } catch (e: Exception) {
                 Log.e(TAG, "Error: ${e.localizedMessage}}")

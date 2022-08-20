@@ -63,6 +63,15 @@
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <FrameLayout
+        android:id="@+id/deadlineFrameContainerTe"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/deadlineTextInputTe"
+        app:layout_constraintEnd_toEndOf="@+id/deadlineTextInputTe"
+        app:layout_constraintStart_toStartOf="@+id/deadlineTextInputTe"
+        app:layout_constraintTop_toTopOf="@+id/deadlineTextInputTe" />
+
     <ImageView
         android:id="@+id/timeImageTe"
         style="@style/ImageTint"

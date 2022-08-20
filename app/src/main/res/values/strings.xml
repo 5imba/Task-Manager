@@ -20,6 +20,7 @@
     <string name="time">Time</string>
     <string name="tags">Tags</string>
     <string name="set_complete">Set Complete</string>
+    <string name="set_unfulfilled">Set Unfulfilled</string>
     <string name="tags_input_hint">tags_input_hint</string>
     <string name="add_task">Add Task</string>
     <string name="save_task">Save Task</string>
@@ -32,5 +33,11 @@
     <string name="color_tag_orange">Color Tag Orange</string>
     <string name="color_tag_light_purple">Color Tag Light Purple</string>
     <string name="color_tag_purple">Color Tag Purple</string>
+    <string name="delete_task">Delete task</string>
+    <string name="search_task">Search task</string>
+    <string name="task_delete_warning">Are you sure you want to delete</string>
+    <string name="task_deleted">Task successfully deleted</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>
