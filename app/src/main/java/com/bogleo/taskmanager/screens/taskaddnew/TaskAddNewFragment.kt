@@ -10,14 +10,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bogleo.taskmanager.common.NotificationHelper
 import com.bogleo.taskmanager.common.Utils
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskAddNewBinding
 import com.bogleo.taskmanager.screens.TasksViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 private const val TAG = "TaskAddNew"
 
@@ -95,22 +92,35 @@ class TaskAddNewFragment : Fragment() {
     }
 
     private fun addTask() {
-        val date = Utils.makeDateString(binding.datePickerAn)
-        val time = Utils.makeTimeString(binding.timePickerAn)
-
-        CoroutineScope(Job() + Dispatchers.IO).launch {
-            viewModel.addTask(
-                Task(
-                    id = 0,
-                    title = binding.taskTitleEditTextAn.text.toString(),
-                    date = date,
-                    time = time,
-                    tags = binding.tagsEditTextAn.text.toString(),
-                    colorTag = binding.colorTagImageAn.tag as Int,
-                    isDone = false
+        val date = Utils.makeDateString(datePicker = binding.datePickerAn)
+        val time = Utils.makeTimeString(timePicker = binding.timePickerAn)
+        val timeMillis = Utils.getMillisFromDateTime(
+            datePicker = binding.datePickerAn,
+            timePicker = binding.timePickerAn
+        )
+        val task = Task(
+            id = 0,
+            title = binding.taskTitleEditTextAn.text.toString(),
+            date = date,
+            time = time,
+            timeMillis = timeMillis,
+            tags = binding.tagsEditTextAn.text.toString(),
+            colorTag = binding.colorTagImageAn.tag as Int,
+            isDone = false
+        )
+        viewModel.addTask(task = task) { id: Long ->
+            NotificationHelper.scheduleNotification(
+                context = requireContext(),
+                task = Utils.changeTask(
+                    task = task,
+                    id = id
                 )
             )
+            navigateToTaskList()
         }
+    }
+
+    private fun navigateToTaskList() {
         try {
             val action = TaskAddNewFragmentDirections.actionTaskAddNewFragmentToTaskList()
             findNavController().navigate(action)

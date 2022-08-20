@@ -15,14 +15,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bogleo.taskmanager.R
+import com.bogleo.taskmanager.common.NotificationHelper
 import com.bogleo.taskmanager.common.Utils
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskEditBinding
 import com.bogleo.taskmanager.screens.TasksViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 private const val TAG = "TaskEdit"
 
@@ -66,7 +63,7 @@ class TaskEditFragment : Fragment(), MenuProvider {
             binding.deadlineEditTextTe.requestFocus()
         }
 
-        binding.saveTaskBtnTe.setOnClickListener { editTask() }
+        binding.saveTaskBtnTe.setOnClickListener { saveChanges() }
 
         binding.deadlineEditTextTe.setOnFocusChangeListener { _, isFocused ->
             setDeadlinePickersVisibility(isFocused = isFocused)
@@ -114,24 +111,30 @@ class TaskEditFragment : Fragment(), MenuProvider {
         }
     }
 
-    private fun editTask() {
-        val date = Utils.makeDateString(binding.datePickerTe)
-        val time = Utils.makeTimeString(binding.timePickerTe)
-
-        CoroutineScope(Job() + Dispatchers.IO).launch {
-            viewModel.updateTask(
-                Task(
-                    id = args.task.id,
-                    title = binding.taskTitleEditTextTe.text.toString(),
-                    date = date,
-                    time = time,
-                    tags = binding.tagsEditTextTe.text.toString(),
-                    colorTag = binding.colorTagImageTe.tag as Int,
-                    isDone = binding.setCompletionSwitchTe.isChecked
-                )
+    private fun saveChanges() {
+        val date = Utils.makeDateString(datePicker = binding.datePickerTe)
+        val time = Utils.makeTimeString(timePicker = binding.timePickerTe)
+        val timeMillis = Utils.getMillisFromDateTime(
+            datePicker = binding.datePickerTe,
+            timePicker = binding.timePickerTe
+        )
+        val task = Task(
+            id = args.task.id,
+            title = binding.taskTitleEditTextTe.text.toString(),
+            date = date,
+            time = time,
+            timeMillis = timeMillis,
+            tags = binding.tagsEditTextTe.text.toString(),
+            colorTag = binding.colorTagImageTe.tag as Int,
+            isDone = binding.setCompletionSwitchTe.isChecked
+        )
+        viewModel.updateTask(task) {
+            NotificationHelper.setTaskNotification(
+                context = requireContext(),
+                task =  task
             )
+            navigateToTaskList()
         }
-        navigateToTaskList()
     }
 
     private fun configureMenu() {
@@ -142,13 +145,17 @@ class TaskEditFragment : Fragment(), MenuProvider {
     private fun deleteTask(task: Task) {
         AlertDialog.Builder(requireContext()).apply {
             setPositiveButton(getText(R.string.yes)) { _, _ ->
-                viewModel.deleteTask(task)
-                Toast.makeText(
-                    requireContext(),
-                    getText(R.string.task_deleted),
-                    Toast.LENGTH_LONG).show()
-
-                navigateToTaskList()
+                viewModel.deleteTask(task) {
+                    NotificationHelper.removeNotification(
+                        context = requireContext(),
+                        task = task
+                    )
+                    Toast.makeText(
+                        requireContext(),
+                        getText(R.string.task_deleted),
+                        Toast.LENGTH_LONG).show()
+                    navigateToTaskList()
+                }
             }
             setNegativeButton(R.string.no) { _, _ -> }
             setTitle("${getText(R.string.delete_task)} \"${task.title}\"?")
@@ -179,6 +186,11 @@ class TaskEditFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if(menuItem.itemId == R.id.deleteMenu){
             deleteTask(task = args.task)
+            NotificationHelper.removeNotification(
+                context = requireContext(),
+                task = args.task
+            )
+            navigateToTaskList()
             return true
         }
         return false

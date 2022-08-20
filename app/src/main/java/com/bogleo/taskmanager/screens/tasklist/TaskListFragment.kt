@@ -2,12 +2,14 @@ package com.bogleo.taskmanager.screens.tasklist
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import androidx.core.view.MenuHost
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.databinding.FragmentTaskListBinding
 import com.bogleo.taskmanager.screens.tasklist.adapters.TasksPagerAdapter
 import com.google.android.material.tabs.TabLayout
@@ -16,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 private const val TAG = "TaskList"
 
 @AndroidEntryPoint
-class TaskListFragment: Fragment() {
+class TaskListFragment: Fragment(), MenuProvider {
 
     private var _binding: FragmentTaskListBinding? = null
     private val binding get() = _binding!!
@@ -26,7 +28,7 @@ class TaskListFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-        // Set ViewPager adapter TODO does it need DI
+        // Set ViewPager adapter TODO does it need DI?
         binding.viewPagerTl.adapter = TasksPagerAdapter(this)
         return binding.root
     }
@@ -52,6 +54,7 @@ class TaskListFragment: Fragment() {
         })
 
         binding.viewPagerTl.registerOnPageChangeCallback(onPageChangeCallback)
+        configureMenu()
     }
 
     override fun onStop() {
@@ -69,5 +72,21 @@ class TaskListFragment: Fragment() {
             super.onPageSelected(position)
             binding.completionTabLayoutTl.getTabAt(position)?.select()
         }
+    }
+
+    private fun configureMenu() {
+        val menuHost = requireActivity() as MenuHost
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_search, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        if(menuItem.itemId == R.id.searchMenu) {
+            return true
+        }
+        return false
     }
 }

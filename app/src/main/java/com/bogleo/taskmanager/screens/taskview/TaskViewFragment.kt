@@ -12,6 +12,8 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bogleo.taskmanager.R
+import com.bogleo.taskmanager.common.NotificationHelper
+import com.bogleo.taskmanager.common.Utils
 import com.bogleo.taskmanager.databinding.FragmentTaskViewBinding
 import com.bogleo.taskmanager.screens.TasksViewModel
 
@@ -51,10 +53,19 @@ class TaskViewFragment : Fragment(), MenuProvider {
         )
 
         binding.setCompleteBtnTv.setOnClickListener {
-            viewModel.switchTaskState(task = task)
-            navigateTo(
-                TaskViewFragmentDirections.actionTaskViewToTaskList()
+            val newTask = Utils.changeTask(
+                task = task,
+                isDone = !task.isDone
             )
+            viewModel.updateTask(task = newTask) {
+                NotificationHelper.setTaskNotification(
+                    context = requireContext(),
+                    task = newTask
+                )
+                navigateTo(
+                    TaskViewFragmentDirections.actionTaskViewToTaskList()
+                )
+            }
         }
     }
 

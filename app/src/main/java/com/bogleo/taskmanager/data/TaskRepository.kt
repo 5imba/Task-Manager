@@ -7,6 +7,7 @@ import javax.inject.Inject
 class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
 
     fun readAllData(): LiveData<List<Task>> {
+        // TODO remove on release
         Log.e("readAllData", "Data Read")
         return taskDao.readAllData()
     }

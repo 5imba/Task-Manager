@@ -1,6 +1,5 @@
 package com.bogleo.taskmanager.common
 
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.DatePicker
@@ -8,9 +7,11 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TimePicker
 import com.bogleo.taskmanager.R
+import com.bogleo.taskmanager.data.Task
+import java.util.*
 
 object Utils {
-    // TODO refactor
+
     fun makeDateTimeText(
         datePicker: DatePicker,
         timePicker: TimePicker
@@ -28,7 +29,7 @@ object Utils {
             "${hour}:${minute}"
         } else{
             val newHour = hour % 12
-            val amPm = if (hour > 12) "pm" else "am"
+            val amPm = if (hour > 12) "PM" else "AM"
             "${"%02d".format(newHour)}:${"%02d".format(minute)} $amPm"
         }
         return "$date, $time"
@@ -38,13 +39,59 @@ object Utils {
         val day = datePicker.dayOfMonth
         val month = datePicker.month
         val year = datePicker.year
-        return "${day}.${month}.${year}"
+        return "${"%02d".format(day)}.${"%02d".format(month)}.${year}"
     }
 
     fun makeTimeString(timePicker: TimePicker): String {
         val hour = timePicker.hour
         val minute = timePicker.minute
-        return "${hour}:${minute}"
+        return "${"%02d".format(hour)}:${"%02d".format(minute)}"
+    }
+
+    fun getMillisFromDateTime(datePicker: DatePicker, timePicker: TimePicker): Long {
+
+        val day = datePicker.dayOfMonth
+        val month = datePicker.month
+        val year = datePicker.year
+        val hour = timePicker.hour
+        val minute = timePicker.minute
+
+        return getMillisFromDateTime(
+            year = year,
+            month = month,
+            day= day,
+            hour = hour,
+            minute = minute
+        )
+    }
+
+    fun changeTask(
+        task: Task,
+        id: Long? = null,
+        title: String? = null,
+        date: String? = null,
+        time: String? = null,
+        timeMillis: Long? = null,
+        tags: String? = null,
+        colorTag: Int? = null,
+        isDone: Boolean? = null
+    ): Task {
+        return Task(
+            id = id?: task.id,
+            title = title?: task.title,
+            date = date?: task.date,
+            time = time?: task.time,
+            timeMillis = timeMillis?: task.timeMillis,
+            tags = tags?: task.tags,
+            colorTag = colorTag?: task.colorTag,
+            isDone = isDone?: task.isDone
+        )
+    }
+
+    private fun getMillisFromDateTime(year: Int, month: Int, day: Int, hour: Int, minute: Int): Long {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day, hour, minute, 0)
+        return calendar.timeInMillis
     }
 
     fun makeColorTagPopup(

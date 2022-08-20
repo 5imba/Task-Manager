@@ -1,6 +1,5 @@
 package com.bogleo.taskmanager.screens
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,25 +17,24 @@ class TasksViewModel @Inject constructor(
 
     val readAllData: LiveData<List<Task>> = repository.readAllData()
 
-    suspend fun addTask(task: Task): Long{
-        return repository.addTask(task)
-    }
-
-    fun updateTask(task: Task){
+    fun addTask(task: Task, callback: (id: Long) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.updateTask(task)
+            val id = repository.addTask(task)
+            launch(Dispatchers.Main) { callback(id) }
         }
     }
 
-    fun switchTaskState(task: Task) {
-        val newTask = Task(id = task.id, title = task.title, date = task.date, time = task.time,
-            tags = task.tags, colorTag = task.colorTag, isDone = !task.isDone)
-        updateTask(task = newTask)
+    fun updateTask(task: Task, callback: () -> Unit){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateTask(task)
+            launch(Dispatchers.Main) { callback() }
+        }
     }
 
-    fun deleteTask(task: Task){
+    fun deleteTask(task: Task, callback: () -> Unit){
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteTask(task)
+            launch(Dispatchers.Main) { callback() }
         }
     }
 

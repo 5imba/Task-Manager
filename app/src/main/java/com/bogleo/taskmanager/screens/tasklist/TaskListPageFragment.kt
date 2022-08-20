@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bogleo.taskmanager.common.DataListener
+import com.bogleo.taskmanager.common.NotificationHelper
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskListPageBinding
 import com.bogleo.taskmanager.screens.TasksViewModel
@@ -47,7 +48,12 @@ class TaskListPageFragment : Fragment() {
 
             taskListAdapter.dataListener = object : DataListener<Task> {
                 override fun onDataChange(data: Task) {
-                    viewModel.updateTask(task = data)
+                    viewModel.updateTask(task = data) {
+                        NotificationHelper.setTaskNotification(
+                            context = requireContext(),
+                            task = data
+                        )
+                    }
                 }
             }
 

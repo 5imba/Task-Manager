@@ -9,10 +9,11 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "task_table")
 data class Task (
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Long,
     val title: String,
     val date: String,
     val time: String,
+    val timeMillis: Long,
     val tags: String,
     val colorTag: Int,
     val isDone: Boolean

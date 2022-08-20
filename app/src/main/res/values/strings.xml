@@ -40,4 +40,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
+    <string name="notification_title">Task Manager</string>
+    <string name="notification_description">Task whose deadline is expiring</string>
 </resources>

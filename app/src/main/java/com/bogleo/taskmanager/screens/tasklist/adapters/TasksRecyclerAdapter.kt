@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.common.DataListener
+import com.bogleo.taskmanager.common.Utils
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.screens.tasklist.TaskListFragmentDirections
 import javax.inject.Inject
@@ -50,8 +51,7 @@ class TasksRecyclerAdapter @Inject constructor() :
 
     private fun changeTaskState(position: Int) {
         val task = taskList[position]
-        val newTask = Task(id = task.id, title = task.title, date = task.date, time = task.time,
-            tags = task.tags, colorTag = task.colorTag, isDone = !task.isDone)
+        val newTask = Utils.changeTask(task = task, isDone = !task.isDone)
 
         dataListener?.onDataChange(newTask)
         notifyItemChanged(position)
