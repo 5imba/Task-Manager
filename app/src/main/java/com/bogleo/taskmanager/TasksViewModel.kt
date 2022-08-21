@@ -15,7 +15,7 @@ class TasksViewModel @Inject constructor(
     private val repository: TaskRepository
 ) : ViewModel() {
 
-    val readAllData: LiveData<List<Task>> = repository.readAllData()
+    val readAllData: LiveData<List<Task>> = repository.readAllData
 
     fun addTask(task: Task, callback: (id: Long) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {

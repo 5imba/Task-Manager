@@ -1,16 +1,11 @@
 package com.bogleo.taskmanager.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
 
-    fun readAllData(): LiveData<List<Task>> {
-        // TODO remove on release
-        Log.e("readAllData", "Data Read")
-        return taskDao.readAllData()
-    }
+    val readAllData: LiveData<List<Task>> = taskDao.readAllData()
 
     suspend fun addTask(task: Task): Long{
         return taskDao.addTask(task)
