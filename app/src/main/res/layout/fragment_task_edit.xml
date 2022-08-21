@@ -22,6 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/task_title"
+            android:imeOptions="actionNext"
+            android:inputType="textImeMultiLine"
             android:minHeight="48dp"
             android:paddingEnd="40dp"
             tools:ignore="RtlSymmetry,TextContrastCheck" />
@@ -58,6 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/deadline"
+            android:imeOptions="actionNext"
+            android:inputType="datetime"
             android:minHeight="48dp"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="TextContrastCheck" />
@@ -161,6 +165,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tags"
+            android:imeOptions="actionDone"
+            android:inputType="textImeMultiLine"
             android:minHeight="48dp"
             tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>

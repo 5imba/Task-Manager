@@ -1,18 +1,15 @@
-package com.bogleo.taskmanager.screens.tasklist.adapters
+package com.bogleo.taskmanager.screens.tasklist.recycler.tags
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bogleo.taskmanager.R
-import com.bogleo.taskmanager.common.DataListener
 
-class TagsRecyclerAdapter: RecyclerView.Adapter<TagsRecyclerAdapter.TagsViewHolder>(),
-    DataListener<List<String>> {
+class TagsRecyclerAdapter: RecyclerView.Adapter<TagsRecyclerAdapter.TagsViewHolder>() {
 
-    private var mTagsList = listOf<String>()
+    private var mTagsList: MutableList<String> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagsViewHolder {
         return TagsViewHolder(LayoutInflater.from(parent.context)
@@ -27,11 +24,13 @@ class TagsRecyclerAdapter: RecyclerView.Adapter<TagsRecyclerAdapter.TagsViewHold
         return mTagsList.size
     }
 
-    // TODO create data insert/delete/updated system
-    @SuppressLint("NotifyDataSetChanged")
-    override fun onDataChange(data: List<String>) {
-        this.mTagsList = data
-        notifyDataSetChanged()
+    fun setData(data: List<String>) {
+        mTagsList.clear()
+        mTagsList.addAll(data)
+    }
+
+    fun getData(): List<String> {
+        return mTagsList
     }
 
     class TagsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

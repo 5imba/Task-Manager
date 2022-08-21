@@ -1,4 +1,4 @@
-package com.bogleo.taskmanager.screens.tasklist.adapters
+package com.bogleo.taskmanager.screens.tasklist.recycler.tasks
 
 import androidx.recyclerview.widget.DiffUtil
 import com.bogleo.taskmanager.data.Task

@@ -1,4 +1,4 @@
-package com.bogleo.taskmanager.screens.tasklist.adapters
+package com.bogleo.taskmanager.screens.tasklist.pager
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

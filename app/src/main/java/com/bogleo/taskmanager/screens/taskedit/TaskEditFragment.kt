@@ -186,11 +186,6 @@ class TaskEditFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if(menuItem.itemId == R.id.deleteMenu){
             deleteTask(task = mArgs.task)
-            NotificationHelper.removeNotification(
-                context = requireContext(),
-                task = mArgs.task
-            )
-            navigateToTaskList()
             return true
         }
         return false

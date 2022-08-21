@@ -14,8 +14,8 @@ import com.bogleo.taskmanager.common.notification.NotificationHelper
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskListPageBinding
 import com.bogleo.taskmanager.TasksViewModel
-import com.bogleo.taskmanager.screens.tasklist.adapters.TasksDiffUtils
-import com.bogleo.taskmanager.screens.tasklist.adapters.TasksRecyclerAdapter
+import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksDiffUtils
+import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksRecyclerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

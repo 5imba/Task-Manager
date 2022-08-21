@@ -18,9 +18,11 @@ import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskListBinding
 import com.bogleo.taskmanager.TasksViewModel
-import com.bogleo.taskmanager.screens.tasklist.adapters.TasksDiffUtils
-import com.bogleo.taskmanager.screens.tasklist.adapters.TasksPagerAdapter
-import com.bogleo.taskmanager.screens.tasklist.adapters.TasksRecyclerAdapter
+import com.bogleo.taskmanager.common.DataListener
+import com.bogleo.taskmanager.common.notification.NotificationHelper
+import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksDiffUtils
+import com.bogleo.taskmanager.screens.tasklist.pager.TasksPagerAdapter
+import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksRecyclerAdapter
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -41,39 +43,15 @@ class TaskListFragment: Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-        // Set ViewPager adapter TODO does it need DI?
+        // Set ViewPager adapter
         binding.viewPagerTl.adapter = TasksPagerAdapter(this)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.addTaskButtonTl.setOnClickListener {
-            try {
-                val action = TaskListFragmentDirections.actionTaskListToTaskAddNewFragment()
-                findNavController().navigate(action)
-            } catch (e: Exception) {
-                Log.e(TAG, "Error: ${e.localizedMessage}}")
-            }
-        }
-
-        binding.completionTabLayoutTl.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                binding.viewPagerTl.currentItem = tab.position
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab) { }
-            override fun onTabReselected(tab: TabLayout.Tab) { }
-        })
-
-        binding.searchRecyclerTl.adapter = taskListAdapter
-        binding.searchRecyclerTl.layoutManager = LinearLayoutManager(
-            requireContext(),
-            RecyclerView.VERTICAL,
-            false
-        )
-
-        binding.viewPagerTl.registerOnPageChangeCallback(onPageChangeCallback)
+        bindUiListeners()
+        configureSearchRecycler()
         configureMenu()
     }
 
@@ -92,6 +70,47 @@ class TaskListFragment: Fragment(), MenuProvider {
             super.onPageSelected(position)
             binding.completionTabLayoutTl.getTabAt(position)?.select()
         }
+    }
+
+    private fun bindUiListeners() {
+        binding.addTaskButtonTl.setOnClickListener {
+            try {
+                val action = TaskListFragmentDirections.actionTaskListToTaskAddNewFragment()
+                findNavController().navigate(action)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error: ${e.localizedMessage}}")
+            }
+        }
+
+        binding.completionTabLayoutTl.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                binding.viewPagerTl.currentItem = tab.position
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab) { }
+            override fun onTabReselected(tab: TabLayout.Tab) { }
+        })
+
+        binding.viewPagerTl.registerOnPageChangeCallback(onPageChangeCallback)
+    }
+
+    private fun configureSearchRecycler() {
+        binding.searchRecyclerTl.adapter = taskListAdapter
+        binding.searchRecyclerTl.layoutManager = LinearLayoutManager(
+            requireContext(),
+            RecyclerView.VERTICAL,
+            false
+        )
+        // Callback from adapter
+        taskListAdapter.setOnDataChangeListener(object : DataListener<Task> {
+            override fun onDataChange(data: Task) {
+                mViewModel.updateTask(task = data) {
+                    NotificationHelper.setTaskNotification(
+                        context = requireContext(),
+                        task = data
+                    )
+                }
+            }
+        })
     }
 
     private fun configureMenu() {

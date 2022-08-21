@@ -1,6 +1,5 @@
-package com.bogleo.taskmanager.screens.tasklist.adapters
+package com.bogleo.taskmanager.screens.tasklist.recycler.tasks
 
-import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bogleo.taskmanager.R
@@ -18,6 +18,8 @@ import com.bogleo.taskmanager.common.DataListener
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.data.change
 import com.bogleo.taskmanager.screens.tasklist.TaskListFragmentDirections
+import com.bogleo.taskmanager.screens.tasklist.recycler.tags.TagsDiffUtils
+import com.bogleo.taskmanager.screens.tasklist.recycler.tags.TagsRecyclerAdapter
 import javax.inject.Inject
 
 private const val TAG = "TasksRecycler"
@@ -86,7 +88,16 @@ class TasksRecyclerAdapter @Inject constructor() :
 
         // Set tags data
         val tags = task.tags.split(',')
-        adapter.onDataChange(tags.filter { tag -> tag.trim().isNotEmpty() })
+        val newTagsList = tags.filter { tag -> tag.trim().isNotEmpty() }
+        // Calculate changes
+        val diffUtils = TagsDiffUtils(
+            oldList = adapter.getData(),
+            newList = newTagsList
+        )
+        val diffResult = DiffUtil.calculateDiff(diffUtils)
+        // Apply data
+        adapter.setData(data = newTagsList)
+        diffResult.dispatchUpdatesTo(adapter)
     }
 
     private fun bindButtons(holder: MyViewHolder, position: Int) {
