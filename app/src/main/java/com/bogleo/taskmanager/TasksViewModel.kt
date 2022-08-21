@@ -1,4 +1,4 @@
-package com.bogleo.taskmanager.screens
+package com.bogleo.taskmanager
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

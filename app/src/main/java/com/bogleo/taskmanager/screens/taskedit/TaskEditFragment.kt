@@ -15,18 +15,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bogleo.taskmanager.R
-import com.bogleo.taskmanager.common.NotificationHelper
+import com.bogleo.taskmanager.common.notification.NotificationHelper
 import com.bogleo.taskmanager.common.Utils
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskEditBinding
-import com.bogleo.taskmanager.screens.TasksViewModel
+import com.bogleo.taskmanager.TasksViewModel
 
 private const val TAG = "TaskEdit"
 
 class TaskEditFragment : Fragment(), MenuProvider {
 
-    private val args by navArgs<TaskEditFragmentArgs>()
-    private val viewModel: TasksViewModel by activityViewModels()
+    private val mArgs by navArgs<TaskEditFragmentArgs>()
+    private val mViewModel: TasksViewModel by activityViewModels()
     private var _binding: FragmentTaskEditBinding? = null
     private val binding get() = _binding!!
 
@@ -46,7 +46,7 @@ class TaskEditFragment : Fragment(), MenuProvider {
     }
 
     private fun setUiData() {
-        val task = args.task
+        val task = mArgs.task
         val deadline = "${task.date}, ${task.time}"
 
         binding.taskTitleEditTextTe.setText(task.title)
@@ -119,7 +119,7 @@ class TaskEditFragment : Fragment(), MenuProvider {
             timePicker = binding.timePickerTe
         )
         val task = Task(
-            id = args.task.id,
+            id = mArgs.task.id,
             title = binding.taskTitleEditTextTe.text.toString(),
             date = date,
             time = time,
@@ -128,7 +128,7 @@ class TaskEditFragment : Fragment(), MenuProvider {
             colorTag = binding.colorTagImageTe.tag as Int,
             isDone = binding.setCompletionSwitchTe.isChecked
         )
-        viewModel.updateTask(task) {
+        mViewModel.updateTask(task) {
             NotificationHelper.setTaskNotification(
                 context = requireContext(),
                 task =  task
@@ -145,7 +145,7 @@ class TaskEditFragment : Fragment(), MenuProvider {
     private fun deleteTask(task: Task) {
         AlertDialog.Builder(requireContext()).apply {
             setPositiveButton(getText(R.string.yes)) { _, _ ->
-                viewModel.deleteTask(task) {
+                mViewModel.deleteTask(task) {
                     NotificationHelper.removeNotification(
                         context = requireContext(),
                         task = task
@@ -185,10 +185,10 @@ class TaskEditFragment : Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if(menuItem.itemId == R.id.deleteMenu){
-            deleteTask(task = args.task)
+            deleteTask(task = mArgs.task)
             NotificationHelper.removeNotification(
                 context = requireContext(),
-                task = args.task
+                task = mArgs.task
             )
             navigateToTaskList()
             return true

@@ -12,17 +12,17 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bogleo.taskmanager.R
-import com.bogleo.taskmanager.common.NotificationHelper
-import com.bogleo.taskmanager.common.Utils
+import com.bogleo.taskmanager.common.notification.NotificationHelper
+import com.bogleo.taskmanager.data.change
 import com.bogleo.taskmanager.databinding.FragmentTaskViewBinding
-import com.bogleo.taskmanager.screens.TasksViewModel
+import com.bogleo.taskmanager.TasksViewModel
 
 private const val TAG = "TaskView"
 
 class TaskViewFragment : Fragment(), MenuProvider {
 
-    private val args by navArgs<TaskViewFragmentArgs>()
-    private val viewModel by activityViewModels<TasksViewModel>()
+    private val mArgs by navArgs<TaskViewFragmentArgs>()
+    private val mViewModel by activityViewModels<TasksViewModel>()
     private var _binding: FragmentTaskViewBinding? = null
     private val binding get() = _binding!!
 
@@ -41,7 +41,7 @@ class TaskViewFragment : Fragment(), MenuProvider {
     }
 
     private fun setUi() {
-        val task = args.task
+        val task = mArgs.task
         binding.taskTitleTextTv.text = task.title
         binding.colorTagImageTv.setColorFilter(task.colorTag)
         binding.dateTextTv.text = task.date
@@ -53,11 +53,8 @@ class TaskViewFragment : Fragment(), MenuProvider {
         )
 
         binding.setCompleteBtnTv.setOnClickListener {
-            val newTask = Utils.changeTask(
-                task = task,
-                isDone = !task.isDone
-            )
-            viewModel.updateTask(task = newTask) {
+            val newTask = task.change(isDone = !task.isDone)
+            mViewModel.updateTask(task = newTask) {
                 NotificationHelper.setTaskNotification(
                     context = requireContext(),
                     task = newTask
@@ -95,7 +92,7 @@ class TaskViewFragment : Fragment(), MenuProvider {
         if(menuItem.itemId == R.id.editMenu){
             navigateTo(
                 TaskViewFragmentDirections.actionTaskViewToTaskEditFragment(
-                    task = args.task
+                    task = mArgs.task
                 )
             )
             return true

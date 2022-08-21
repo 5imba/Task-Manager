@@ -10,17 +10,18 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.bogleo.taskmanager.common.NotificationHelper
+import com.bogleo.taskmanager.common.notification.NotificationHelper
 import com.bogleo.taskmanager.common.Utils
 import com.bogleo.taskmanager.data.Task
+import com.bogleo.taskmanager.data.change
 import com.bogleo.taskmanager.databinding.FragmentTaskAddNewBinding
-import com.bogleo.taskmanager.screens.TasksViewModel
+import com.bogleo.taskmanager.TasksViewModel
 
 private const val TAG = "TaskAddNew"
 
 class TaskAddNewFragment : Fragment() {
 
-    private val viewModel: TasksViewModel by activityViewModels()
+    private val mViewModel: TasksViewModel by activityViewModels()
     private var _binding: FragmentTaskAddNewBinding? = null
     private val binding get() = _binding!!
 
@@ -108,13 +109,10 @@ class TaskAddNewFragment : Fragment() {
             colorTag = binding.colorTagImageAn.tag as Int,
             isDone = false
         )
-        viewModel.addTask(task = task) { id: Long ->
+        mViewModel.addTask(task = task) { id: Long ->
             NotificationHelper.scheduleNotification(
                 context = requireContext(),
-                task = Utils.changeTask(
-                    task = task,
-                    id = id
-                )
+                task = task.change(id = id)
             )
             navigateToTaskList()
         }

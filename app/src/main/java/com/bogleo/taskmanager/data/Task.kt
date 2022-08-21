@@ -18,3 +18,25 @@ data class Task (
     val colorTag: Int,
     val isDone: Boolean
 ): Parcelable
+
+fun Task.change(
+    id: Long? = null,
+    title: String? = null,
+    date: String? = null,
+    time: String? = null,
+    timeMillis: Long? = null,
+    tags: String? = null,
+    colorTag: Int? = null,
+    isDone: Boolean? = null
+): Task {
+    return Task(
+        id = id?: this.id,
+        title = title?: this.title,
+        date = date?: this.date,
+        time = time?: this.time,
+        timeMillis = timeMillis?: this.timeMillis,
+        tags = tags?: this.tags,
+        colorTag = colorTag?: this.colorTag,
+        isDone = isDone?: this.isDone
+    )
+}

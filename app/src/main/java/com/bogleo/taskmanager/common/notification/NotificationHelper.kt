@@ -1,9 +1,10 @@
-package com.bogleo.taskmanager.common
+package com.bogleo.taskmanager.common.notification
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import com.bogleo.taskmanager.common.NOTIFICATION_TASK_EXTRA
 import com.bogleo.taskmanager.data.Task
 
 object NotificationHelper {

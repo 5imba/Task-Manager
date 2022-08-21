@@ -2,18 +2,60 @@ package com.bogleo.taskmanager
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.bogleo.taskmanager.common.NOTIFICATION_CHANNEL_DEFAULT
-import com.bogleo.taskmanager.screens.TasksActivity
+import com.bogleo.taskmanager.common.NOTIFICATION_TASK_EXTRA
+import com.bogleo.taskmanager.common.notification.NotificationHelper
+import com.bogleo.taskmanager.data.Task
+import com.bogleo.taskmanager.data.change
+import com.bogleo.taskmanager.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private val mViewModel: TasksViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        createNotificationChannel()
+        setupNavController()
+        setSupportActionBar(binding.toolbar)
+        setContentView(binding.root)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        val task = intent.getParcelableExtra<Task>(NOTIFICATION_TASK_EXTRA)
+        if (task != null) {
+            mViewModel.updateTask(
+                task = task.change(isDone = true)
+            ) {
+                NotificationHelper.removeNotification(
+                    context = this,
+                    task = task
+                )
+            }
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
+    }
+
+    private fun createNotificationChannel() {
         val channel = NotificationChannel(
             NOTIFICATION_CHANNEL_DEFAULT,
             getString(R.string.notification_title),
@@ -24,8 +66,16 @@ class MainActivity : AppCompatActivity() {
             }
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
+    }
 
-        val intent = Intent(this, TasksActivity::class.java)
-        startActivity(intent)
+    private fun setupNavController() {
+        setSupportActionBar(binding.toolbar)
+        setContentView(binding.root)
+
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 }

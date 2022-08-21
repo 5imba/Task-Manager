@@ -9,24 +9,29 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.common.DataListener
-import com.bogleo.taskmanager.common.Utils
 import com.bogleo.taskmanager.data.Task
+import com.bogleo.taskmanager.data.change
 import com.bogleo.taskmanager.screens.tasklist.TaskListFragmentDirections
 import javax.inject.Inject
 
-private const val TAG = "TasksRecyclerAdapter"
+private const val TAG = "TasksRecycler"
 
 class TasksRecyclerAdapter @Inject constructor() :
-    RecyclerView.Adapter<TasksRecyclerAdapter.MyViewHolder>(),
-    DataListener<List<Task>> {
+    RecyclerView.Adapter<TasksRecyclerAdapter.MyViewHolder>()
+{
 
-    private var taskList: List<Task> = emptyList()
-    var dataListener: DataListener<Task>? = null
+    private var dataListener: DataListener<Task>? = null
+    private val mTaskList: MutableList<Task> = ArrayList()
+
+    fun setOnDataChangeListener(dataListener: DataListener<Task>) {
+        this.dataListener = dataListener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(parent.context)
@@ -34,24 +39,24 @@ class TasksRecyclerAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val task = taskList[position]
+        val task = mTaskList[position]
         bindUi(holder = holder, task = task)
         bindButtons(holder = holder, position = position)
     }
 
     override fun getItemCount(): Int {
-        return taskList.size
+        return mTaskList.size
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    override fun onDataChange(data: List<Task>) {
-        this.taskList = data
-        notifyDataSetChanged()
+    fun getData(): List<Task> = mTaskList
+    fun setData(data: List<Task>) {
+        mTaskList.clear()
+        mTaskList.addAll(data)
     }
 
     private fun changeTaskState(position: Int) {
-        val task = taskList[position]
-        val newTask = Utils.changeTask(task = task, isDone = !task.isDone)
+        val task = mTaskList[position]
+        val newTask = task.change(isDone = !task.isDone)
 
         dataListener?.onDataChange(newTask)
         notifyItemChanged(position)
@@ -92,27 +97,26 @@ class TasksRecyclerAdapter @Inject constructor() :
 
         // Navigate to view task
         holder.containerConstraint.setOnClickListener {
-            try {
-                val action = TaskListFragmentDirections
-                    .actionTaskListToTaskView(task = taskList[position])
-                holder.itemView.findNavController().navigate(action)
-            } catch (e: Exception) {
-                Log.e(TAG, "Error: ${e.localizedMessage}}")
-            }
+            val action = TaskListFragmentDirections
+                .actionTaskListToTaskView(task = mTaskList[position])
+            navigateTo(itemView = holder.itemView, action = action)
         }
 
         // Navigate to edit task
         holder.taskEditImageView.setOnClickListener {
-            try {
-                val action = TaskListFragmentDirections
-                    .actionTaskListToTaskEditFragment(task = taskList[position])
-                holder.itemView.findNavController().navigate(action)
-            } catch (e: Exception) {
-                Log.e(TAG, "Error: ${e.localizedMessage}}")
-            }
+            val action = TaskListFragmentDirections
+                .actionTaskListToTaskEditFragment(task = mTaskList[position])
+            navigateTo(itemView = holder.itemView, action = action)
         }
     }
 
+    private fun navigateTo(itemView: View, action: NavDirections) {
+        try {
+            itemView.findNavController().navigate(action)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error: ${e.localizedMessage}")
+        }
+    }
 
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val containerConstraint: ConstraintLayout = itemView.findViewById(R.id.containerConstraintTi)

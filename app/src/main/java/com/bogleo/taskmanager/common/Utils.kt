@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TimePicker
 import com.bogleo.taskmanager.R
-import com.bogleo.taskmanager.data.Task
 import java.util.*
 
 object Utils {
@@ -62,29 +61,6 @@ object Utils {
             day= day,
             hour = hour,
             minute = minute
-        )
-    }
-
-    fun changeTask(
-        task: Task,
-        id: Long? = null,
-        title: String? = null,
-        date: String? = null,
-        time: String? = null,
-        timeMillis: Long? = null,
-        tags: String? = null,
-        colorTag: Int? = null,
-        isDone: Boolean? = null
-    ): Task {
-        return Task(
-            id = id?: task.id,
-            title = title?: task.title,
-            date = date?: task.date,
-            time = time?: task.time,
-            timeMillis = timeMillis?: task.timeMillis,
-            tags = tags?: task.tags,
-            colorTag = colorTag?: task.colorTag,
-            isDone = isDone?: task.isDone
         )
     }
 

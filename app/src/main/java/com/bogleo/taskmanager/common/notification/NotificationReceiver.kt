@@ -1,4 +1,4 @@
-package com.bogleo.taskmanager.common
+package com.bogleo.taskmanager.common.notification
 
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -7,9 +7,11 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.bogleo.taskmanager.MainActivity
 import com.bogleo.taskmanager.R
+import com.bogleo.taskmanager.common.NOTIFICATION_CHANNEL_DEFAULT
+import com.bogleo.taskmanager.common.NOTIFICATION_TASK_EXTRA
 import com.bogleo.taskmanager.data.Task
-import com.bogleo.taskmanager.screens.TasksActivity
 
 private const val TAG = "NotificationService"
 
@@ -20,7 +22,7 @@ class NotificationReceiver : BroadcastReceiver() {
         val task = intent.getParcelableExtra<Task>(NOTIFICATION_TASK_EXTRA)
         if (task != null) {
 
-            val setDoneIntent = Intent(context, TasksActivity::class.java)
+            val setDoneIntent = Intent(context, MainActivity::class.java)
                 .putExtra(NOTIFICATION_TASK_EXTRA, task)
             val setDonePendingIntent = PendingIntent.getActivity(
                 context,
