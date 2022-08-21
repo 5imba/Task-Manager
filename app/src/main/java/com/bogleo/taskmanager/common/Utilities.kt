@@ -9,7 +9,7 @@ import android.widget.TimePicker
 import com.bogleo.taskmanager.R
 import java.util.*
 
-object Utils {
+object Utilities {
 
     fun makeDateTimeText(
         datePicker: DatePicker,

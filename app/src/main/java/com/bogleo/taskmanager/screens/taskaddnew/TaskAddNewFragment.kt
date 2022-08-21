@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bogleo.taskmanager.common.notification.NotificationHelper
-import com.bogleo.taskmanager.common.Utils
+import com.bogleo.taskmanager.common.Utilities
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.data.change
 import com.bogleo.taskmanager.databinding.FragmentTaskAddNewBinding
@@ -58,7 +58,7 @@ class TaskAddNewFragment : Fragment() {
         }
 
         binding.colorTagImageAn.setOnClickListener {
-            Utils.makeColorTagPopup(
+            Utilities.makeColorTagPopup(
                 viewAnchor = binding.colorTagImageAn,
                 layoutInflater = layoutInflater,
                 container = null
@@ -67,7 +67,7 @@ class TaskAddNewFragment : Fragment() {
     }
 
     private fun setDeadlineText() {
-        val dateTimeString = Utils.makeDateTimeText(
+        val dateTimeString = Utilities.makeDateTimeText(
             datePicker = binding.datePickerAn,
             timePicker = binding.timePickerAn,
         )
@@ -93,9 +93,9 @@ class TaskAddNewFragment : Fragment() {
     }
 
     private fun addTask() {
-        val date = Utils.makeDateString(datePicker = binding.datePickerAn)
-        val time = Utils.makeTimeString(timePicker = binding.timePickerAn)
-        val timeMillis = Utils.getMillisFromDateTime(
+        val date = Utilities.makeDateString(datePicker = binding.datePickerAn)
+        val time = Utilities.makeTimeString(timePicker = binding.timePickerAn)
+        val timeMillis = Utilities.getMillisFromDateTime(
             datePicker = binding.datePickerAn,
             timePicker = binding.timePickerAn
         )

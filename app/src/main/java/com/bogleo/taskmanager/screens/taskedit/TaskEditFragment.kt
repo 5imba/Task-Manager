@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.common.notification.NotificationHelper
-import com.bogleo.taskmanager.common.Utils
+import com.bogleo.taskmanager.common.Utilities
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskEditBinding
 import com.bogleo.taskmanager.TasksViewModel
@@ -77,7 +77,7 @@ class TaskEditFragment : Fragment(), MenuProvider {
         }
 
         binding.colorTagImageTe.setOnClickListener {
-            Utils.makeColorTagPopup(
+            Utilities.makeColorTagPopup(
                 viewAnchor = binding.colorTagImageTe,
                 layoutInflater = layoutInflater,
                 container = null
@@ -86,7 +86,7 @@ class TaskEditFragment : Fragment(), MenuProvider {
     }
 
     private fun setDeadlineText() {
-        val dateTimeString = Utils.makeDateTimeText(
+        val dateTimeString = Utilities.makeDateTimeText(
             datePicker = binding.datePickerTe,
             timePicker = binding.timePickerTe,
         )
@@ -112,9 +112,9 @@ class TaskEditFragment : Fragment(), MenuProvider {
     }
 
     private fun saveChanges() {
-        val date = Utils.makeDateString(datePicker = binding.datePickerTe)
-        val time = Utils.makeTimeString(timePicker = binding.timePickerTe)
-        val timeMillis = Utils.getMillisFromDateTime(
+        val date = Utilities.makeDateString(datePicker = binding.datePickerTe)
+        val time = Utilities.makeTimeString(timePicker = binding.timePickerTe)
+        val timeMillis = Utilities.getMillisFromDateTime(
             datePicker = binding.datePickerTe,
             timePicker = binding.timePickerTe
         )
