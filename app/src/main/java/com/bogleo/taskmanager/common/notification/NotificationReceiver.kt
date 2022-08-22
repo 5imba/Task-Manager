@@ -66,7 +66,7 @@ class NotificationReceiver : BroadcastReceiver() {
             val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.notify(task.id.toInt(), notification)
 
-            Log.e(TAG, "Task notification schedule: ${task.title}")
+            Log.i(TAG, "Task notification schedule: ${task.title}")
         }
     }
 }
