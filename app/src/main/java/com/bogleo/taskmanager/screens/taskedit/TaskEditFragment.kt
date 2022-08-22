@@ -21,7 +21,7 @@ import com.bogleo.taskmanager.common.TextUtils
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskEditBinding
 import com.bogleo.taskmanager.TasksViewModel
-import com.bogleo.taskmanager.common.ColorTagPopup
+import com.bogleo.taskmanager.ui.ColorTagPopup
 
 private const val TAG = "TaskEdit"
 

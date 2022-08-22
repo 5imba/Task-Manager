@@ -18,7 +18,7 @@ import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.data.change
 import com.bogleo.taskmanager.databinding.FragmentTaskAddNewBinding
 import com.bogleo.taskmanager.TasksViewModel
-import com.bogleo.taskmanager.common.ColorTagPopup
+import com.bogleo.taskmanager.ui.ColorTagPopup
 
 private const val TAG = "TaskAddNew"
 

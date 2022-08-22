@@ -13,7 +13,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bogleo.taskmanager.R
-import com.bogleo.taskmanager.common.DataListener
+import com.bogleo.taskmanager.data.DataListener
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.data.change
 import com.bogleo.taskmanager.screens.tasklist.TaskListFragmentDirections

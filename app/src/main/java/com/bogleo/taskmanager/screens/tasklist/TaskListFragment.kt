@@ -18,14 +18,13 @@ import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskListBinding
 import com.bogleo.taskmanager.TasksViewModel
-import com.bogleo.taskmanager.common.DataListener
+import com.bogleo.taskmanager.data.DataListener
 import com.bogleo.taskmanager.common.notification.NotificationHelper
 import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksDiffUtils
 import com.bogleo.taskmanager.screens.tasklist.pager.TasksPagerAdapter
 import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksRecyclerAdapter
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 private const val TAG = "TaskList"
 

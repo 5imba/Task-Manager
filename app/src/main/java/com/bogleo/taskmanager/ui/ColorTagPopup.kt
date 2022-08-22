@@ -1,4 +1,4 @@
-package com.bogleo.taskmanager.common
+package com.bogleo.taskmanager.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

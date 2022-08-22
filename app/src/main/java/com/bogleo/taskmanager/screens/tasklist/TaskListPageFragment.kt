@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bogleo.taskmanager.common.DataListener
+import com.bogleo.taskmanager.data.DataListener
 import com.bogleo.taskmanager.common.notification.NotificationHelper
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskListPageBinding
