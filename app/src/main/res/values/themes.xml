@@ -90,8 +90,16 @@
         <item name="android:textAppearance">@style/MainTextAppearance</item>
     </style>
 
+    <style name="InputTextTags" parent="InputText">
+        <item name="boxStrokeErrorColor">@color/black</item>
+        <item name="counterOverflowTextColor">@color/black</item>
+        <item name="errorIconTint">@color/black</item>
+        <item name="errorTextColor">@color/black</item>
+    </style>
+
     <style name="EditText" parent="Widget.AppCompat.EditText">
         <item name="android:textAppearance">@style/MainTextAppearance</item>
+        <item name="drawableTint">@color/black</item>
     </style>
 
     <style name="Switch" parent="TextAppearance.AppCompat.Widget.Switch">

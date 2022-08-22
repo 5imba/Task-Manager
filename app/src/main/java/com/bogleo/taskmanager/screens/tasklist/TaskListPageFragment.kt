@@ -16,20 +16,15 @@ import com.bogleo.taskmanager.databinding.FragmentTaskListPageBinding
 import com.bogleo.taskmanager.TasksViewModel
 import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksDiffUtils
 import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksRecyclerAdapter
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 const val TASK_LIST_PAGE_ARG = "taskListPageArg"
 
-@AndroidEntryPoint
 class TaskListPageFragment : Fragment() {
-
-    @Inject
-    lateinit var taskListAdapter: TasksRecyclerAdapter
 
     private val mViewModel: TasksViewModel by activityViewModels()
     private var _binding: FragmentTaskListPageBinding? = null
     private val binding get() = _binding!!
+    private lateinit var taskListAdapter: TasksRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +34,7 @@ class TaskListPageFragment : Fragment() {
         _binding = FragmentTaskListPageBinding.inflate(inflater, container, false)
 
         // RecyclerView configs
+        taskListAdapter = TasksRecyclerAdapter()
         binding.recyclerViewTlp.adapter = taskListAdapter
         binding.recyclerViewTlp.layoutManager = LinearLayoutManager(
             requireContext(),
@@ -63,20 +59,27 @@ class TaskListPageFragment : Fragment() {
             })
             // Observe Task DB data
             mViewModel.readAllData.observe(viewLifecycleOwner) { taskList: List<Task> ->
-                // Sort by isDone filter
-                val newTaskList = taskList.filter { task: Task ->
-                    task.isDone == (getInt(TASK_LIST_PAGE_ARG) == 1)
-                }
-                // Calculate changes
-                val diffUtils = TasksDiffUtils(
-                    oldList = taskListAdapter.getData(),
-                    newList = newTaskList
+                setDataToRecycler(
+                    taskList = taskList,
+                    pageNum = getInt(TASK_LIST_PAGE_ARG)
                 )
-                val diffResult = DiffUtil.calculateDiff(diffUtils)
-                // Apply data
-                taskListAdapter.setData(data = newTaskList)
-                diffResult.dispatchUpdatesTo(taskListAdapter)
             }
         }
+    }
+
+    private fun setDataToRecycler(taskList: List<Task>, pageNum: Int) {
+        // Sort by isDone filter
+        val newTaskList = taskList.filter { task: Task ->
+            task.isDone == (pageNum == 1)
+        }
+        // Calculate changes
+        val diffUtils = TasksDiffUtils(
+            oldList = taskListAdapter.getData(),
+            newList = newTaskList
+        )
+        val diffResult = DiffUtil.calculateDiff(diffUtils)
+        // Apply data
+        taskListAdapter.setData(data = newTaskList)
+        diffResult.dispatchUpdatesTo(taskListAdapter)
     }
 }

@@ -80,10 +80,15 @@
 
     <style name="InputText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:textAppearance">@style/MainTextAppearance</item>
+        <item name="boxStrokeErrorColor">@color/white</item>
+        <item name="counterOverflowTextColor">@color/white</item>
+        <item name="errorIconTint">@color/white</item>
+        <item name="errorTextColor">@color/white</item>
     </style>
 
     <style name="EditText" parent="Widget.AppCompat.EditText">
         <item name="android:textAppearance">@style/MainTextAppearance</item>
+        <item name="drawableTint">@color/white</item>
     </style>
 
     <style name="Switch" parent="TextAppearance.AppCompat.Widget.Switch">

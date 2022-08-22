@@ -12,6 +12,7 @@
         style="@style/InputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:errorIconDrawable="@drawable/empty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,12 +34,11 @@
         android:id="@+id/colorTagImageTe"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="15dp"
         android:contentDescription="@string/color_tag"
         android:focusable="true"
         android:src="@drawable/ic_circle_fill"
-        app:layout_constraintBottom_toBottomOf="@+id/taskTitleTextInputTe"
         app:layout_constraintEnd_toEndOf="@+id/taskTitleTextInputTe"
         app:layout_constraintTop_toTopOf="@+id/taskTitleTextInputTe"
         app:tint="@color/teal_200"
@@ -60,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:cursorVisible="false"
+            android:drawableEnd="@drawable/ic_clock"
             android:hint="@string/deadline"
             android:imeOptions="actionNext"
             android:inputType="datetime"
@@ -76,19 +77,6 @@
         app:layout_constraintEnd_toEndOf="@+id/deadlineTextInputTe"
         app:layout_constraintStart_toStartOf="@+id/deadlineTextInputTe"
         app:layout_constraintTop_toTopOf="@+id/deadlineTextInputTe" />
-
-    <ImageView
-        android:id="@+id/timeImageTe"
-        style="@style/ImageTint"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="10dp"
-        android:contentDescription="@string/time"
-        android:src="@drawable/ic_clock"
-        app:layout_constraintBottom_toBottomOf="@+id/deadlineTextInputTe"
-        app:layout_constraintEnd_toEndOf="@+id/deadlineTextInputTe"
-        app:layout_constraintTop_toTopOf="@+id/deadlineTextInputTe"
-        app:layout_constraintVertical_bias="0.583" />
 
     <LinearLayout
         android:id="@+id/pickersLinearLayoutTe"
@@ -152,7 +140,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tagsTextInputTe"
-        style="@style/InputText"
+        style="@style/InputTextTags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -165,24 +153,14 @@
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_tags"
+            android:drawableTint="#000000"
             android:hint="@string/tags"
             android:imeOptions="actionDone"
             android:inputType="textImeMultiLine"
             android:minHeight="48dp"
             tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/tagsImageTe"
-        style="@style/ImageTint"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="10dp"
-        android:contentDescription="@string/tags"
-        android:src="@drawable/ic_tags"
-        app:layout_constraintBottom_toBottomOf="@+id/tagsTextInputTe"
-        app:layout_constraintEnd_toEndOf="@+id/tagsTextInputTe"
-        app:layout_constraintTop_toTopOf="@+id/tagsTextInputTe" />
 
     <Switch
         android:id="@+id/setCompletionSwitchTe"

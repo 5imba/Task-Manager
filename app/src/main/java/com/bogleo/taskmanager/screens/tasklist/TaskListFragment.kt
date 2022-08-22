@@ -32,18 +32,24 @@ private const val TAG = "TaskList"
 @AndroidEntryPoint
 class TaskListFragment: Fragment(), MenuProvider {
 
-    @Inject
-    lateinit var taskListAdapter: TasksRecyclerAdapter
     private val mViewModel: TasksViewModel by activityViewModels()
     private var _binding: FragmentTaskListBinding? = null
     private val binding get() = _binding!!
+    private lateinit var taskListAdapter: TasksRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-        // Set ViewPager adapter
+        // Set adapters
+        taskListAdapter = TasksRecyclerAdapter()
+        binding.searchRecyclerTl.adapter = taskListAdapter
+        binding.searchRecyclerTl.layoutManager = LinearLayoutManager(
+            requireContext(),
+            RecyclerView.VERTICAL,
+            false
+        )
         binding.viewPagerTl.adapter = TasksPagerAdapter(this)
         return binding.root
     }
@@ -94,12 +100,6 @@ class TaskListFragment: Fragment(), MenuProvider {
     }
 
     private fun configureSearchRecycler() {
-        binding.searchRecyclerTl.adapter = taskListAdapter
-        binding.searchRecyclerTl.layoutManager = LinearLayoutManager(
-            requireContext(),
-            RecyclerView.VERTICAL,
-            false
-        )
         // Callback from adapter
         taskListAdapter.setOnDataChangeListener(object : DataListener<Task> {
             override fun onDataChange(data: Task) {

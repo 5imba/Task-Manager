@@ -25,26 +25,12 @@
         android:gravity="center|start"
         android:hint="@string/task_title"
         android:minHeight="48dp"
-        android:paddingEnd="45dp"
         android:textSize="18sp"
+        app:drawableEndCompat="@drawable/ic_circle_fill"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskTitleLabelTextTv"
         tools:ignore="RtlSymmetry,TextContrastCheck" />
-
-    <ImageView
-        android:id="@+id/colorTagImageTv"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="@string/color_tag"
-        android:focusable="true"
-        android:src="@drawable/ic_circle_fill"
-        app:layout_constraintBottom_toBottomOf="@+id/taskTitleTextTv"
-        app:layout_constraintEnd_toEndOf="@+id/taskTitleTextTv"
-        app:layout_constraintTop_toTopOf="@+id/taskTitleTextTv"
-        app:tint="@color/teal_200"
-        tools:ignore="ImageContrastCheck" />
 
     <View
         android:id="@+id/viewSeparatorTv1"
@@ -78,25 +64,13 @@
         android:importantForAutofill="no"
         android:inputType="none"
         android:minHeight="48dp"
-        android:paddingEnd="45dp"
         android:textSize="18sp"
         android:windowSoftInputMode="stateAlwaysHidden"
+        app:drawableEndCompat="@drawable/ic_calendar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deadlineTextTv"
         tools:ignore="DuplicateSpeakableTextCheck,RtlSymmetry,TextContrastCheck" />
-
-    <ImageView
-        android:id="@+id/dateImageTv"
-        style="@style/ImageTint"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="@string/date"
-        android:src="@drawable/ic_calendar"
-        app:layout_constraintBottom_toBottomOf="@+id/dateTextTv"
-        app:layout_constraintEnd_toEndOf="@+id/dateTextTv"
-        app:layout_constraintTop_toTopOf="@+id/dateTextTv" />
 
 
     <TextView
@@ -110,27 +84,13 @@
         android:hint="@string/time"
         android:importantForAutofill="no"
         android:minHeight="48dp"
-        android:paddingEnd="45dp"
         android:textSize="18sp"
+        app:drawableEndCompat="@drawable/ic_clock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateTextTv"
         tools:ignore="DuplicateSpeakableTextCheck,RtlSymmetry,TextContrastCheck" />
 
-
-
-
-    <ImageView
-        android:id="@+id/timeImageTv"
-        style="@style/ImageTint"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="@string/time"
-        android:src="@drawable/ic_clock"
-        app:layout_constraintBottom_toBottomOf="@+id/timeTextTv"
-        app:layout_constraintEnd_toEndOf="@+id/timeTextTv"
-        app:layout_constraintTop_toTopOf="@+id/timeTextTv" />
 
     <View
         android:id="@+id/viewSeparatorTv2"
@@ -163,24 +123,12 @@
         android:gravity="center|start"
         android:hint="@string/tags"
         android:minHeight="48dp"
-        android:paddingEnd="45dp"
         android:textSize="18sp"
+        app:drawableEndCompat="@drawable/ic_tags"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tagsLabelTextTv"
         tools:ignore="DuplicateSpeakableTextCheck,RtlSymmetry,TextContrastCheck" />
-
-    <ImageView
-        android:id="@+id/tagsImageTv"
-        style="@style/ImageTint"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="@string/tags"
-        android:src="@drawable/ic_tags"
-        app:layout_constraintBottom_toBottomOf="@+id/tagsTextTv"
-        app:layout_constraintEnd_toEndOf="@+id/tagsTextTv"
-        app:layout_constraintTop_toTopOf="@+id/tagsTextTv" />
 
     <Button
         android:id="@+id/setCompleteBtnTv"

@@ -7,20 +7,25 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bogleo.taskmanager.R
-import javax.inject.Inject
 
-class TagsRecyclerAdapter @Inject constructor() :
-    RecyclerView.Adapter<TagsRecyclerAdapter.TagsViewHolder>() {
+class TagsRecyclerAdapter : RecyclerView.Adapter<TagsRecyclerAdapter.TagsViewHolder>() {
 
     private var mTagsList: MutableList<String> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagsViewHolder {
-        return TagsViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_tag, parent, false))
-    }
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ) = TagsViewHolder(itemView = LayoutInflater
+            .from(parent.context)
+            .inflate(
+                R.layout.item_tag,
+                parent,
+                false
+            )
+        )
 
     override fun onBindViewHolder(holder: TagsViewHolder, position: Int) {
-        holder.tagTextView.text = mTagsList[position].trim()
+        holder.onBind(mTagsList[position])
     }
 
     override fun getItemCount(): Int {
@@ -35,6 +40,10 @@ class TagsRecyclerAdapter @Inject constructor() :
     }
 
     class TagsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val tagTextView: TextView = itemView.findViewById(R.id.tagTextIt)
+        private val tagTextView: TextView = itemView.findViewById(R.id.tagTextIt)
+
+        fun onBind(tag: String) {
+            tagTextView.text = tag
+        }
     }
 }

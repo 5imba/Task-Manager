@@ -1,5 +1,7 @@
 package com.bogleo.taskmanager.screens.taskview
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -40,10 +42,11 @@ class TaskViewFragment : Fragment(), MenuProvider {
         configureMenu()
     }
 
+    @SuppressLint("UseCompatTextViewDrawableApis")
     private fun setUi() {
         val task = mArgs.task
         binding.taskTitleTextTv.text = task.title
-        binding.colorTagImageTv.setColorFilter(task.colorTag)
+        binding.taskTitleTextTv.compoundDrawableTintList = ColorStateList.valueOf(task.colorTag)
         binding.dateTextTv.text = task.date
         binding.timeTextTv.text = task.time
         binding.tagsTextTv.text = task.tags

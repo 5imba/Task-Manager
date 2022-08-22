@@ -7,15 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.common.notification.NotificationHelper
-import com.bogleo.taskmanager.common.Utilities
+import com.bogleo.taskmanager.common.TextUtils
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.data.change
 import com.bogleo.taskmanager.databinding.FragmentTaskAddNewBinding
 import com.bogleo.taskmanager.TasksViewModel
+import com.bogleo.taskmanager.common.ColorTagPopup
 
 private const val TAG = "TaskAddNew"
 
@@ -39,35 +42,51 @@ class TaskAddNewFragment : Fragment() {
     }
 
     private fun bindUi() {
+        // Task title show warning on empty
+        binding.taskTitleEditTextAn.addTextChangedListener { editable ->
+            binding.taskTitleTextInputAn.error  =
+                if (editable.isNullOrEmpty()) getString(R.string.empty_task_title_warning)
+                else null
+        }
+        // Set color tag
+        val colorTag = binding.colorTagImageAn.imageTintList?.defaultColor!!.toInt()
+        binding.colorTagImageAn.tag = colorTag
+        // Color tag Popup
+        binding.colorTagImageAn.setOnClickListener {
+            ColorTagPopup.show(
+                viewAnchor = binding.colorTagImageAn,
+                layoutInflater = layoutInflater,
+                container = null
+            )
+        }
+        // Date & Time pickers visibility
         binding.deadlineFrameContainerAn.setOnClickListener {
             setDeadlinePickersVisibility(isFocused = true)
             binding.deadlineEditTextAn.requestFocus()
         }
-
-        binding.addTaskBtnAn.setOnClickListener { addTask() }
-
         binding.deadlineEditTextAn.setOnFocusChangeListener { _, isFocused ->
             setDeadlinePickersVisibility(isFocused = isFocused)
         }
-
+        // Deadline text
         binding.datePickerAn.setOnDateChangedListener { _, _, _, _ ->
             setDeadlineText()
         }
         binding.timePickerAn.setOnTimeChangedListener { _, _, _ ->
             setDeadlineText()
         }
-
-        binding.colorTagImageAn.setOnClickListener {
-            Utilities.makeColorTagPopup(
-                viewAnchor = binding.colorTagImageAn,
-                layoutInflater = layoutInflater,
-                container = null
-            )
+        // Tags hint visibility
+        binding.tagsTextInputAn.errorIconDrawable = null
+        binding.tagsEditTextAn.setOnFocusChangeListener { _, isFocused ->
+            binding.tagsTextInputAn.error =
+                if (isFocused) getString(R.string.tags_input_separator_hint)
+                else null
         }
+        // Add Task to DB
+        binding.addTaskBtnAn.setOnClickListener { addTask() }
     }
 
     private fun setDeadlineText() {
-        val dateTimeString = Utilities.makeDateTimeText(
+        val dateTimeString = TextUtils.makeDateTimeText(
             datePicker = binding.datePickerAn,
             timePicker = binding.timePickerAn,
         )
@@ -93,9 +112,14 @@ class TaskAddNewFragment : Fragment() {
     }
 
     private fun addTask() {
-        val date = Utilities.makeDateString(datePicker = binding.datePickerAn)
-        val time = Utilities.makeTimeString(timePicker = binding.timePickerAn)
-        val timeMillis = Utilities.getMillisFromDateTime(
+        if (!validateInput()) {
+            binding.taskTitleTextInputAn.error = getString(R.string.empty_task_title_warning)
+            return
+        }
+
+        val date = TextUtils.makeDateString(datePicker = binding.datePickerAn)
+        val time = TextUtils.makeTimeString(timePicker = binding.timePickerAn)
+        val timeMillis = TextUtils.getMillisFromDateTime(
             datePicker = binding.datePickerAn,
             timePicker = binding.timePickerAn
         )
@@ -116,6 +140,10 @@ class TaskAddNewFragment : Fragment() {
             )
             navigateToTaskList()
         }
+    }
+
+    private fun validateInput(): Boolean {
+        return !binding.taskTitleEditTextAn.text.isNullOrEmpty()
     }
 
     private fun navigateToTaskList() {

@@ -10,16 +10,18 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.common.notification.NotificationHelper
-import com.bogleo.taskmanager.common.Utilities
+import com.bogleo.taskmanager.common.TextUtils
 import com.bogleo.taskmanager.data.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskEditBinding
 import com.bogleo.taskmanager.TasksViewModel
+import com.bogleo.taskmanager.common.ColorTagPopup
 
 private const val TAG = "TaskEdit"
 
@@ -58,35 +60,48 @@ class TaskEditFragment : Fragment(), MenuProvider {
     }
 
     private fun bindUiActions() {
+        // Task title show warning on empty
+        binding.taskTitleEditTextTe.addTextChangedListener { editable ->
+            binding.taskTitleTextInputTe.error  =
+                if (editable.isNullOrEmpty()) getString(R.string.empty_task_title_warning)
+                else null
+        }
+        // Color tag Popup
+        binding.colorTagImageTe.setOnClickListener {
+            ColorTagPopup.show(
+                viewAnchor = binding.colorTagImageTe,
+                layoutInflater = layoutInflater,
+                container = null
+            )
+        }
+        // Date & Time pickers visibility
         binding.deadlineFrameContainerTe.setOnClickListener {
             setDeadlinePickersVisibility(isFocused = true)
             binding.deadlineEditTextTe.requestFocus()
         }
-
-        binding.saveTaskBtnTe.setOnClickListener { saveChanges() }
-
         binding.deadlineEditTextTe.setOnFocusChangeListener { _, isFocused ->
             setDeadlinePickersVisibility(isFocused = isFocused)
         }
-
+        // Deadline text
         binding.datePickerTe.setOnDateChangedListener { _, _, _, _ ->
             setDeadlineText()
         }
         binding.timePickerTe.setOnTimeChangedListener { _, _, _ ->
             setDeadlineText()
         }
-
-        binding.colorTagImageTe.setOnClickListener {
-            Utilities.makeColorTagPopup(
-                viewAnchor = binding.colorTagImageTe,
-                layoutInflater = layoutInflater,
-                container = null
-            )
+        // Tags hint visibility
+        binding.tagsTextInputTe.errorIconDrawable = null
+        binding.tagsEditTextTe.setOnFocusChangeListener { _, isFocused ->
+            binding.tagsTextInputTe.error =
+                if (isFocused) getString(R.string.tags_input_separator_hint)
+                else null
         }
+        // Save Task to DB
+        binding.saveTaskBtnTe.setOnClickListener { saveChanges() }
     }
 
     private fun setDeadlineText() {
-        val dateTimeString = Utilities.makeDateTimeText(
+        val dateTimeString = TextUtils.makeDateTimeText(
             datePicker = binding.datePickerTe,
             timePicker = binding.timePickerTe,
         )
@@ -111,10 +126,19 @@ class TaskEditFragment : Fragment(), MenuProvider {
         }
     }
 
+    private fun validateInput(): Boolean {
+        return !binding.taskTitleEditTextTe.text.isNullOrEmpty()
+    }
+
     private fun saveChanges() {
-        val date = Utilities.makeDateString(datePicker = binding.datePickerTe)
-        val time = Utilities.makeTimeString(timePicker = binding.timePickerTe)
-        val timeMillis = Utilities.getMillisFromDateTime(
+        if (!validateInput()) {
+            binding.tagsTextInputTe.error = getString(R.string.tags_input_separator_hint)
+            return
+        }
+
+        val date = TextUtils.makeDateString(datePicker = binding.datePickerTe)
+        val time = TextUtils.makeTimeString(timePicker = binding.timePickerTe)
+        val timeMillis = TextUtils.getMillisFromDateTime(
             datePicker = binding.datePickerTe,
             timePicker = binding.timePickerTe
         )

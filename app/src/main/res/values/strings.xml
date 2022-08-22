@@ -42,4 +42,6 @@
 
     <string name="notification_title">Task Manager</string>
     <string name="notification_description">Task whose deadline is expiring</string>
+    <string name="tags_input_separator_hint">Use comma as separator</string>
+    <string name="empty_task_title_warning">Please fill task title field</string>
 </resources>
