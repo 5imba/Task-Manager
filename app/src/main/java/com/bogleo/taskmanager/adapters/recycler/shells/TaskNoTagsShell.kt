@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.adapters.recycler.TaskShell
 import com.bogleo.taskmanager.adapters.recycler.BaseViewHolder
-import com.bogleo.taskmanager.common.ViewExtensions.safeNavigateTo
-import com.bogleo.taskmanager.common.ViewExtensions.setChecked
-import com.bogleo.taskmanager.common.ViewExtensions.setColor
+import com.bogleo.taskmanager.common.Extensions.safeNavigateTo
+import com.bogleo.taskmanager.common.Extensions.setChecked
+import com.bogleo.taskmanager.common.Extensions.setColor
 import com.bogleo.taskmanager.model.Task
 import com.bogleo.taskmanager.databinding.ItemTaskNoTagsBinding
 import com.bogleo.taskmanager.screens.tasklist.TaskListFragmentDirections

@@ -36,19 +36,6 @@ object TextUtils {
         return "$date, $time"
     }
 
-    fun makeDateString(datePicker: DatePicker): String {
-        val day = datePicker.dayOfMonth
-        val month = datePicker.month
-        val year = datePicker.year
-        return "${"%02d".format(day)}.${"%02d".format(month)}.${year}"
-    }
-
-    fun makeTimeString(timePicker: TimePicker): String {
-        val hour = timePicker.hour
-        val minute = timePicker.minute
-        return "${"%02d".format(hour)}:${"%02d".format(minute)}"
-    }
-
     fun getMillisFromDateTime(datePicker: DatePicker, timePicker: TimePicker): Long {
 
         val day = datePicker.dayOfMonth

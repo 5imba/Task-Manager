@@ -21,6 +21,7 @@ import com.bogleo.taskmanager.common.TextUtils
 import com.bogleo.taskmanager.model.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskEditBinding
 import com.bogleo.taskmanager.TasksViewModel
+import com.bogleo.taskmanager.common.Extensions.getText
 import com.bogleo.taskmanager.ui.ColorTagPopup
 
 private val TAG = TaskEditFragment::class.qualifiedName
@@ -52,70 +53,70 @@ class TaskEditFragment : Fragment(), MenuProvider {
         val task = mArgs.task
         val deadline = "${task.date}, ${task.time}"
 
-        binding.taskTitleEditTextTe.setText(task.title)
-        binding.colorTagImageTe.setColorFilter(task.colorTag)
-        binding.colorTagImageTe.tag = task.colorTag
-        binding.deadlineEditTextTe.setText(deadline)
-        binding.tagsEditTextTe.setText(TextUtils.makeTagString(task.tags))
-        binding.setCompletionSwitchTe.isChecked = task.isDone
+        binding.teEdTxtTitle.setText(task.title)
+        binding.teImgColorTag.setColorFilter(task.colorTag)
+        binding.teImgColorTag.tag = task.colorTag
+        binding.teEdTxtDeadline.setText(deadline)
+        binding.teEdTxtTags.setText(TextUtils.makeTagString(task.tags))
+        binding.teSwitchCompletion.isChecked = task.isDone
     }
 
     private fun bindUiActions() {
         // Task title show warning on empty
-        binding.taskTitleEditTextTe.addTextChangedListener { editable ->
-            binding.taskTitleTextInputTe.error  =
+        binding.teEdTxtTitle.addTextChangedListener { editable ->
+            binding.teTxtInTitle.error  =
                 if (editable.isNullOrEmpty()) getString(R.string.empty_task_title_warning)
                 else null
         }
         // Color tag Popup
-        binding.colorTagImageTe.setOnClickListener {
+        binding.teImgColorTag.setOnClickListener {
             ColorTagPopup.show(
-                viewAnchor = binding.colorTagImageTe,
+                viewAnchor = binding.teImgColorTag,
                 layoutInflater = layoutInflater,
                 container = null
             )
         }
         // Date & Time pickers visibility
-        binding.deadlineFrameContainerTe.setOnClickListener {
+        binding.teFrameDeadline.setOnClickListener {
             setDeadlinePickersVisibility(isFocused = true)
-            binding.deadlineEditTextTe.requestFocus()
+            binding.teEdTxtDeadline.requestFocus()
         }
-        binding.deadlineEditTextTe.setOnFocusChangeListener { _, isFocused ->
+        binding.teEdTxtDeadline.setOnFocusChangeListener { _, isFocused ->
             setDeadlinePickersVisibility(isFocused = isFocused)
         }
         // Deadline text
-        binding.datePickerTe.setOnDateChangedListener { _, _, _, _ ->
+        binding.tePickerDate.setOnDateChangedListener { _, _, _, _ ->
             setDeadlineText()
         }
-        binding.timePickerTe.setOnTimeChangedListener { _, _, _ ->
+        binding.tePickerTime.setOnTimeChangedListener { _, _, _ ->
             setDeadlineText()
         }
         // Tags hint visibility
-        binding.tagsTextInputTe.errorIconDrawable = null
-        binding.tagsEditTextTe.setOnFocusChangeListener { _, isFocused ->
-            binding.tagsTextInputTe.error =
+        binding.teTxtInTags.errorIconDrawable = null
+        binding.teEdTxtTags.setOnFocusChangeListener { _, isFocused ->
+            binding.teTxtInTags.error =
                 if (isFocused) getString(R.string.tags_input_separator_hint)
                 else null
         }
         // Save Task to DB
-        binding.saveTaskBtnTe.setOnClickListener { saveChanges() }
+        binding.teBtnSaveTask.setOnClickListener { saveChanges() }
     }
 
     private fun setDeadlineText() {
         val dateTimeString = TextUtils.makeDateTimeText(
-            datePicker = binding.datePickerTe,
-            timePicker = binding.timePickerTe,
+            datePicker = binding.tePickerDate,
+            timePicker = binding.tePickerTime,
         )
-        binding.deadlineEditTextTe.setText(dateTimeString)
+        binding.teEdTxtDeadline.setText(dateTimeString)
     }
 
     private fun setDeadlinePickersVisibility(isFocused: Boolean) {
         if (isFocused) {
             closeKeyboard()
             setDeadlineText()
-            binding.pickersLinearLayoutTe.visibility = View.VISIBLE
+            binding.teLinearPickers.visibility = View.VISIBLE
         } else {
-            binding.pickersLinearLayoutTe.visibility = View.GONE
+            binding.teLinearPickers.visibility = View.GONE
         }
     }
 
@@ -128,34 +129,32 @@ class TaskEditFragment : Fragment(), MenuProvider {
     }
 
     private fun validateInput(): Boolean {
-        return !binding.taskTitleEditTextTe.text.isNullOrEmpty()
+        return !binding.teEdTxtTitle.text.isNullOrEmpty()
     }
 
     private fun saveChanges() {
         if (!validateInput()) {
-            binding.tagsTextInputTe.error = getString(R.string.tags_input_separator_hint)
+            binding.teTxtInTitle.error = getString(R.string.empty_task_title_warning)
             return
         }
 
-        val date = TextUtils.makeDateString(datePicker = binding.datePickerTe)
-        val time = TextUtils.makeTimeString(timePicker = binding.timePickerTe)
         val timeMillis = TextUtils.getMillisFromDateTime(
-            datePicker = binding.datePickerTe,
-            timePicker = binding.timePickerTe
+            datePicker = binding.tePickerDate,
+            timePicker = binding.tePickerTime
         )
         val tags = TextUtils.makeTagList(
-            tagsStr = binding.tagsEditTextTe.text.toString()
+            tagsStr = binding.teEdTxtTags.text.toString()
         )
 
         val task = Task(
             id = mArgs.task.id,
-            title = binding.taskTitleEditTextTe.text.toString(),
-            date = date,
-            time = time,
+            title = binding.teEdTxtTitle.text.toString(),
+            date = binding.tePickerDate.getText(),
+            time = binding.tePickerTime.getText(),
             timeMillis = timeMillis,
             tags = tags,
-            colorTag = binding.colorTagImageTe.tag as Int,
-            isDone = binding.setCompletionSwitchTe.isChecked
+            colorTag = binding.teImgColorTag.tag as Int,
+            isDone = binding.teSwitchCompletion.isChecked
         )
         mViewModel.updateTask(task) {
             NotificationHelper.setTaskNotification(

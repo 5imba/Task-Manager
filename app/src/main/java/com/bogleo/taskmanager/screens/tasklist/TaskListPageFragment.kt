@@ -35,7 +35,7 @@ class TaskListPageFragment : Fragment() {
 
         // RecyclerView configs
         recyclerAdapter = ShellAdapter(getShells())
-        with(binding.recyclerViewTlp) {
+        with(binding.tlpRecycler) {
             adapter = recyclerAdapter
             layoutManager = LinearLayoutManager(
                 requireContext(),

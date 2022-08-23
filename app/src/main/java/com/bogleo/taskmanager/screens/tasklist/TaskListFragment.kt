@@ -34,7 +34,7 @@ class TaskListFragment: Fragment(), MenuProvider {
     private val binding get() = _binding!!
 
     private val mViewModel: TasksViewModel by activityViewModels()
-    private val pagerAdapter by lazy { TasksPagerAdapter(this) }
+    private lateinit var pagerAdapter: TasksPagerAdapter
     private lateinit var recyclerAdapter: ShellAdapter
 
     override fun onCreateView(
@@ -45,7 +45,7 @@ class TaskListFragment: Fragment(), MenuProvider {
 
         // RecyclerView configs
         recyclerAdapter = ShellAdapter(getShells())
-        with(binding.searchRecyclerTl) {
+        with(binding.tlRecyclerSearch) {
             adapter = recyclerAdapter
             layoutManager = LinearLayoutManager(
                 requireContext(),
@@ -54,7 +54,8 @@ class TaskListFragment: Fragment(), MenuProvider {
             )
         }
         // Pager configs
-        binding.viewPagerTl.adapter = pagerAdapter
+        pagerAdapter = TasksPagerAdapter(this)
+        binding.tlViewPager.adapter = pagerAdapter
 
         return binding.root
     }
@@ -68,12 +69,12 @@ class TaskListFragment: Fragment(), MenuProvider {
     private val onPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
-            binding.completionTabLayoutTl.getTabAt(position)?.select()
+            binding.tlTabLayoutCompletion.getTabAt(position)?.select()
         }
     }
 
     private fun bindUiListeners() {
-        binding.addTaskButtonTl.setOnClickListener {
+        binding.tlBtnAddTask.setOnClickListener {
             try {
                 val action = TaskListFragmentDirections.actionTaskListToTaskAddNewFragment()
                 findNavController().navigate(action)
@@ -82,15 +83,15 @@ class TaskListFragment: Fragment(), MenuProvider {
             }
         }
 
-        binding.completionTabLayoutTl.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.tlTabLayoutCompletion.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                binding.viewPagerTl.currentItem = tab.position
+                binding.tlViewPager.currentItem = tab.position
             }
             override fun onTabUnselected(tab: TabLayout.Tab) { }
             override fun onTabReselected(tab: TabLayout.Tab) { }
         })
 
-        binding.viewPagerTl.registerOnPageChangeCallback(onPageChangeCallback)
+        binding.tlViewPager.registerOnPageChangeCallback(onPageChangeCallback)
     }
 
     private fun getShells() = listOf(
@@ -131,11 +132,11 @@ class TaskListFragment: Fragment(), MenuProvider {
         }
         search.setOnActionExpandListener(object : MenuItem.OnActionExpandListener{
             override fun onMenuItemActionExpand(menuItem: MenuItem?): Boolean {
-                binding.searchFrameTl.visibility = View.VISIBLE
+                binding.tlFrameSearch.visibility = View.VISIBLE
                 return true
             }
             override fun onMenuItemActionCollapse(menuItem: MenuItem?): Boolean {
-                binding.searchFrameTl.visibility = View.GONE
+                binding.tlFrameSearch.visibility = View.GONE
                 return true
             }
         })
@@ -161,7 +162,7 @@ class TaskListFragment: Fragment(), MenuProvider {
 
     override fun onStop() {
         super.onStop()
-        binding.viewPagerTl.unregisterOnPageChangeCallback(onPageChangeCallback)
+        binding.tlViewPager.unregisterOnPageChangeCallback(onPageChangeCallback)
     }
 
     override fun onDestroyView() {

@@ -40,7 +40,7 @@ class TagsRecyclerAdapter : RecyclerView.Adapter<TagsRecyclerAdapter.TagsViewHol
     }
 
     class TagsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val tagTextView: TextView = itemView.findViewById(R.id.tagTextIt)
+        private val tagTextView: TextView = itemView.findViewById(R.id.tagText)
 
         fun onBind(tag: String) {
             tagTextView.text = tag

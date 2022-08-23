@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tagFrameIt"
+    android:id="@+id/tagFrame"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="10dp"
     android:background="@drawable/rounded_rect_border">
 
     <TextView
-        android:id="@+id/tagTextIt"
+        android:id="@+id/tagText"
         style="@style/TextList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

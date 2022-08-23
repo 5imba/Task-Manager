@@ -12,8 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->
-        <item name="android:colorBackground">@color/dark_gray</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:colorBackground">@color/dark_gray</item>
     </style>
 
     <style name="MyTabLayout" parent="Widget.MaterialComponents.TabLayout">
@@ -79,6 +79,9 @@
 
     <style name="InputText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:textAppearance">@style/MainTextAppearance</item>
+    </style>
+
+    <style name="InputTextTags" parent="InputText">
         <item name="boxStrokeErrorColor">@color/white</item>
         <item name="counterOverflowTextColor">@color/white</item>
         <item name="errorIconTint">@color/white</item>

@@ -23,10 +23,11 @@ private val TAG = TaskViewFragment::class.qualifiedName
 
 class TaskViewFragment : Fragment(), MenuProvider {
 
-    private val mArgs by navArgs<TaskViewFragmentArgs>()
-    private val mViewModel by activityViewModels<TasksViewModel>()
     private var _binding: FragmentTaskViewBinding? = null
     private val binding get() = _binding!!
+
+    private val mViewModel: TasksViewModel by activityViewModels()
+    private val mArgs by navArgs<TaskViewFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,17 +46,17 @@ class TaskViewFragment : Fragment(), MenuProvider {
     @SuppressLint("UseCompatTextViewDrawableApis")
     private fun setUi() {
         val task = mArgs.task
-        binding.taskTitleTextTv.text = task.title
-        binding.taskTitleTextTv.compoundDrawableTintList = ColorStateList.valueOf(task.colorTag)
-        binding.dateTextTv.text = task.date
-        binding.timeTextTv.text = task.time
-        binding.tagsTextTv.text = TextUtils.makeTagString(task.tags)
-        binding.setCompleteBtnTv.text = getText(
+        binding.tvTxtTitle.text = task.title
+        binding.tvTxtTitle.compoundDrawableTintList = ColorStateList.valueOf(task.colorTag)
+        binding.tvTxtDate.text = task.date
+        binding.tvTxtTime.text = task.time
+        binding.tvTxtTags.text = TextUtils.makeTagString(task.tags)
+        binding.tvBtnSetComplete.text = getText(
             if (task.isDone) R.string.set_unfulfilled
             else R.string.set_complete
         )
 
-        binding.setCompleteBtnTv.setOnClickListener {
+        binding.tvBtnSetComplete.setOnClickListener {
             val newTask = task.copy(isDone = !task.isDone)
             mViewModel.updateTask(task = newTask) {
                 NotificationHelper.setTaskNotification(

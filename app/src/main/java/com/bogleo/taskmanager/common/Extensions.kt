@@ -3,13 +3,15 @@ package com.bogleo.taskmanager.common
 import android.content.res.ColorStateList
 import android.util.Log
 import android.view.View
+import android.widget.DatePicker
 import android.widget.ImageView
+import android.widget.TimePicker
 import androidx.cardview.widget.CardView
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.bogleo.taskmanager.R
 
-object ViewExtensions {
+object Extensions {
 
     fun ImageView.setChecked(isChecked: Boolean) {
         val icon = when (isChecked) {
@@ -29,5 +31,13 @@ object ViewExtensions {
         } catch (e: Exception) {
             Log.e("SafeNavigate", "NavController error: ${e.localizedMessage}")
         }
+    }
+
+    fun DatePicker.getText(): String {
+        return "${"%02d".format(dayOfMonth)}.${"%02d".format(month)}.${year}"
+    }
+
+    fun TimePicker.getText(): String {
+        return "${"%02d".format(hour)}:${"%02d".format(minute)}"
     }
 }

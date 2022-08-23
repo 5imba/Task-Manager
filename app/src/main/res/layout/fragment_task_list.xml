@@ -7,7 +7,7 @@
     tools:context=".screens.tasklist.TaskListFragment">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/completionTabLayoutTl"
+        android:id="@+id/tlTabLayoutCompletion"
         style="@style/MyTabLayout"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -32,7 +32,7 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPagerTl"
+        android:id="@+id/tlViewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
@@ -40,12 +40,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/completionTabLayoutTl">
+        app:layout_constraintTop_toTopOf="@+id/tlTabLayoutCompletion">
 
     </androidx.viewpager2.widget.ViewPager2>
 
     <ImageButton
-        android:id="@+id/addTaskButtonTl"
+        android:id="@+id/tlBtnAddTask"
         style="@style/FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <FrameLayout
-        android:id="@+id/searchFrameTl"
+        android:id="@+id/tlFrameSearch"
         style="@style/ImageBackgroundInverted"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -76,7 +76,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searchRecyclerTl"
+            android:id="@+id/tlRecyclerSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>

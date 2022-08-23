@@ -8,7 +8,7 @@
     tools:context=".screens.taskedit.TaskEditFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/taskTitleTextInputTe"
+        android:id="@+id/teTxtInTitle"
         style="@style/InputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/taskTitleEditTextTe"
+            android:id="@+id/teEdTxtTitle"
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
-        android:id="@+id/colorTagImageTe"
+        android:id="@+id/teImgColorTag"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="17dp"
@@ -39,23 +39,23 @@
         android:contentDescription="@string/color_tag"
         android:focusable="true"
         android:src="@drawable/ic_circle_fill"
-        app:layout_constraintEnd_toEndOf="@+id/taskTitleTextInputTe"
-        app:layout_constraintTop_toTopOf="@+id/taskTitleTextInputTe"
+        app:layout_constraintEnd_toEndOf="@+id/teTxtInTitle"
+        app:layout_constraintTop_toTopOf="@+id/teTxtInTitle"
         app:tint="@color/teal_200"
         tools:ignore="ImageContrastCheck" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/deadlineTextInputTe"
+        android:id="@+id/teTxtInDeadline"
         style="@style/InputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taskTitleTextInputTe">
+        app:layout_constraintTop_toBottomOf="@+id/teTxtInTitle">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/deadlineEditTextTe"
+            android:id="@+id/teEdTxtDeadline"
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,16 +70,16 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <FrameLayout
-        android:id="@+id/deadlineFrameContainerTe"
+        android:id="@+id/teFrameDeadline"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/deadlineTextInputTe"
-        app:layout_constraintEnd_toEndOf="@+id/deadlineTextInputTe"
-        app:layout_constraintStart_toStartOf="@+id/deadlineTextInputTe"
-        app:layout_constraintTop_toTopOf="@+id/deadlineTextInputTe" />
+        app:layout_constraintBottom_toBottomOf="@+id/teTxtInDeadline"
+        app:layout_constraintEnd_toEndOf="@+id/teTxtInDeadline"
+        app:layout_constraintStart_toStartOf="@+id/teTxtInDeadline"
+        app:layout_constraintTop_toTopOf="@+id/teTxtInDeadline" />
 
     <LinearLayout
-        android:id="@+id/pickersLinearLayoutTe"
+        android:id="@+id/teLinearPickers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
@@ -87,7 +87,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deadlineTextInputTe">
+        app:layout_constraintTop_toBottomOf="@+id/teTxtInDeadline">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -95,7 +95,7 @@
             android:layout_weight="1">
 
             <DatePicker
-                android:id="@+id/datePickerTe"
+                android:id="@+id/tePickerDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -119,7 +119,7 @@
             android:layout_weight="1">
 
             <android.widget.TimePicker
-                android:id="@+id/timePickerTe"
+                android:id="@+id/tePickerTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -139,17 +139,17 @@
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tagsTextInputTe"
+        android:id="@+id/teTxtInTags"
         style="@style/InputTextTags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pickersLinearLayoutTe">
+        app:layout_constraintTop_toBottomOf="@+id/teLinearPickers">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tagsEditTextTe"
+            android:id="@+id/teEdTxtTags"
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Switch
-        android:id="@+id/setCompletionSwitchTe"
+        android:id="@+id/teSwitchCompletion"
         style="@style/Switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -173,13 +173,14 @@
         android:minHeight="48dp"
         android:text="@string/set_complete"
         android:textSize="17sp"
+        android:trackTintMode="add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tagsTextInputTe"
+        app:layout_constraintTop_toBottomOf="@+id/teTxtInTags"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Button
-        android:id="@+id/saveTaskBtnTe"
+        android:id="@+id/teBtnSaveTask"
         style="@style/MyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
