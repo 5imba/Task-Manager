@@ -10,64 +10,59 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bogleo.taskmanager.R
-import com.bogleo.taskmanager.data.Task
+import com.bogleo.taskmanager.model.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskListBinding
 import com.bogleo.taskmanager.TasksViewModel
-import com.bogleo.taskmanager.data.DataListener
 import com.bogleo.taskmanager.common.notification.NotificationHelper
-import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksDiffUtils
-import com.bogleo.taskmanager.screens.tasklist.pager.TasksPagerAdapter
-import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksRecyclerAdapter
+import com.bogleo.taskmanager.adapters.pager.TasksPagerAdapter
+import com.bogleo.taskmanager.adapters.recycler.ShellAdapter
+import com.bogleo.taskmanager.adapters.recycler.shells.TaskNoTagsShell
+import com.bogleo.taskmanager.adapters.recycler.shells.TaskWithTagsShell
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val TAG = "TaskList"
+private val TAG = TaskListFragment::class.qualifiedName
 
 @AndroidEntryPoint
 class TaskListFragment: Fragment(), MenuProvider {
 
-    private val mViewModel: TasksViewModel by activityViewModels()
     private var _binding: FragmentTaskListBinding? = null
     private val binding get() = _binding!!
-    private lateinit var taskListAdapter: TasksRecyclerAdapter
+
+    private val mViewModel: TasksViewModel by activityViewModels()
+    private val pagerAdapter by lazy { TasksPagerAdapter(this) }
+    private lateinit var recyclerAdapter: ShellAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-        // Set adapters
-        taskListAdapter = TasksRecyclerAdapter()
-        binding.searchRecyclerTl.adapter = taskListAdapter
-        binding.searchRecyclerTl.layoutManager = LinearLayoutManager(
-            requireContext(),
-            RecyclerView.VERTICAL,
-            false
-        )
-        binding.viewPagerTl.adapter = TasksPagerAdapter(this)
+
+        // RecyclerView configs
+        recyclerAdapter = ShellAdapter(getShells())
+        with(binding.searchRecyclerTl) {
+            adapter = recyclerAdapter
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                RecyclerView.VERTICAL,
+                false
+            )
+        }
+        // Pager configs
+        binding.viewPagerTl.adapter = pagerAdapter
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindUiListeners()
-        configureSearchRecycler()
         configureMenu()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        binding.viewPagerTl.unregisterOnPageChangeCallback(onPageChangeCallback)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private val onPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
@@ -83,7 +78,7 @@ class TaskListFragment: Fragment(), MenuProvider {
                 val action = TaskListFragmentDirections.actionTaskListToTaskAddNewFragment()
                 findNavController().navigate(action)
             } catch (e: Exception) {
-                Log.e(TAG, "Error: ${e.localizedMessage}}")
+                Log.e(TAG, "NavController error: ${e.localizedMessage}}")
             }
         }
 
@@ -98,18 +93,18 @@ class TaskListFragment: Fragment(), MenuProvider {
         binding.viewPagerTl.registerOnPageChangeCallback(onPageChangeCallback)
     }
 
-    private fun configureSearchRecycler() {
-        // Callback from adapter
-        taskListAdapter.setOnDataChangeListener(object : DataListener<Task> {
-            override fun onDataChange(data: Task) {
-                mViewModel.updateTask(task = data) {
-                    NotificationHelper.setTaskNotification(
-                        context = requireContext(),
-                        task = data
-                    )
-                }
-            }
-        })
+    private fun getShells() = listOf(
+        TaskWithTagsShell(::onTaskStateChange),
+        TaskNoTagsShell(::onTaskStateChange)
+    )
+
+    private fun onTaskStateChange(task: Task) {
+        mViewModel.updateTask(task = task) {
+            NotificationHelper.setTaskNotification(
+                context = requireContext(),
+                task = task
+            )
+        }
     }
 
     private fun configureMenu() {
@@ -157,18 +152,20 @@ class TaskListFragment: Fragment(), MenuProvider {
         if (query != null) {
             val searchQuery = "%$query%"
             mViewModel.searchTask(searchQuery).observe(viewLifecycleOwner) { tasks: List<Task> ->
-                // Calculate changes
-                val diffUtils = TasksDiffUtils(
-                    oldList = taskListAdapter.getData(),
-                    newList = tasks
-                )
-                val diffResult = DiffUtil.calculateDiff(diffUtils)
-                // Apply data
-                taskListAdapter.setData(data = tasks)
-                diffResult.dispatchUpdatesTo(taskListAdapter)
+                recyclerAdapter.submitList(tasks)
             }
             return true
         }
         return false
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.viewPagerTl.unregisterOnPageChangeCallback(onPageChangeCallback)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

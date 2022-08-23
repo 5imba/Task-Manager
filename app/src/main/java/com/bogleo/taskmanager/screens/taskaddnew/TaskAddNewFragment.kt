@@ -14,19 +14,19 @@ import androidx.navigation.fragment.findNavController
 import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.common.notification.NotificationHelper
 import com.bogleo.taskmanager.common.TextUtils
-import com.bogleo.taskmanager.data.Task
-import com.bogleo.taskmanager.data.change
+import com.bogleo.taskmanager.model.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskAddNewBinding
 import com.bogleo.taskmanager.TasksViewModel
 import com.bogleo.taskmanager.ui.ColorTagPopup
 
-private const val TAG = "TaskAddNew"
+private val TAG = TaskAddNewFragment::class.qualifiedName
 
 class TaskAddNewFragment : Fragment() {
 
-    private val mViewModel: TasksViewModel by activityViewModels()
     private var _binding: FragmentTaskAddNewBinding? = null
     private val binding get() = _binding!!
+
+    private val mViewModel: TasksViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -123,20 +123,24 @@ class TaskAddNewFragment : Fragment() {
             datePicker = binding.datePickerAn,
             timePicker = binding.timePickerAn
         )
+        val tags = TextUtils.makeTagList(
+            tagsStr = binding.tagsEditTextAn.text.toString()
+        )
+
         val task = Task(
             id = 0,
             title = binding.taskTitleEditTextAn.text.toString(),
             date = date,
             time = time,
             timeMillis = timeMillis,
-            tags = binding.tagsEditTextAn.text.toString(),
+            tags = tags,
             colorTag = binding.colorTagImageAn.tag as Int,
             isDone = false
         )
         mViewModel.addTask(task = task) { id: Long ->
             NotificationHelper.scheduleNotification(
                 context = requireContext(),
-                task = task.change(id = id)
+                task = task.copy(id = id)
             )
             navigateToTaskList()
         }
@@ -151,7 +155,7 @@ class TaskAddNewFragment : Fragment() {
             val action = TaskAddNewFragmentDirections.actionTaskAddNewFragmentToTaskList()
             findNavController().navigate(action)
         } catch (e: Exception) {
-            Log.e(TAG, "Error: ${e.localizedMessage}}")
+            Log.e(TAG, "NavController error: ${e.localizedMessage}}")
         }
     }
 

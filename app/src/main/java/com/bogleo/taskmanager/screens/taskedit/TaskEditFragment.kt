@@ -18,19 +18,20 @@ import androidx.navigation.fragment.navArgs
 import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.common.notification.NotificationHelper
 import com.bogleo.taskmanager.common.TextUtils
-import com.bogleo.taskmanager.data.Task
+import com.bogleo.taskmanager.model.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskEditBinding
 import com.bogleo.taskmanager.TasksViewModel
 import com.bogleo.taskmanager.ui.ColorTagPopup
 
-private const val TAG = "TaskEdit"
+private val TAG = TaskEditFragment::class.qualifiedName
 
 class TaskEditFragment : Fragment(), MenuProvider {
 
-    private val mArgs by navArgs<TaskEditFragmentArgs>()
-    private val mViewModel: TasksViewModel by activityViewModels()
     private var _binding: FragmentTaskEditBinding? = null
     private val binding get() = _binding!!
+
+    private val mViewModel: TasksViewModel by activityViewModels()
+    private val mArgs by navArgs<TaskEditFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +56,7 @@ class TaskEditFragment : Fragment(), MenuProvider {
         binding.colorTagImageTe.setColorFilter(task.colorTag)
         binding.colorTagImageTe.tag = task.colorTag
         binding.deadlineEditTextTe.setText(deadline)
-        binding.tagsEditTextTe.setText(task.tags)
+        binding.tagsEditTextTe.setText(TextUtils.makeTagString(task.tags))
         binding.setCompletionSwitchTe.isChecked = task.isDone
     }
 
@@ -142,13 +143,17 @@ class TaskEditFragment : Fragment(), MenuProvider {
             datePicker = binding.datePickerTe,
             timePicker = binding.timePickerTe
         )
+        val tags = TextUtils.makeTagList(
+            tagsStr = binding.tagsEditTextTe.text.toString()
+        )
+
         val task = Task(
             id = mArgs.task.id,
             title = binding.taskTitleEditTextTe.text.toString(),
             date = date,
             time = time,
             timeMillis = timeMillis,
-            tags = binding.tagsEditTextTe.text.toString(),
+            tags = tags,
             colorTag = binding.colorTagImageTe.tag as Int,
             isDone = binding.setCompletionSwitchTe.isChecked
         )
@@ -194,13 +199,8 @@ class TaskEditFragment : Fragment(), MenuProvider {
             val action = TaskEditFragmentDirections.actionTaskEditFragmentToTaskList()
             findNavController().navigate(action)
         } catch (e: Exception) {
-            Log.e(TAG, "Error: ${e.localizedMessage}}")
+            Log.e(TAG, "NavController error: ${e.localizedMessage}}")
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -213,5 +213,10 @@ class TaskEditFragment : Fragment(), MenuProvider {
             return true
         }
         return false
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -1,4 +1,4 @@
-package com.bogleo.taskmanager.screens.tasklist.recycler.tags
+package com.bogleo.taskmanager.adapters.recycler
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -15,14 +15,14 @@ class TagsRecyclerAdapter : RecyclerView.Adapter<TagsRecyclerAdapter.TagsViewHol
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ) = TagsViewHolder(itemView = LayoutInflater
-            .from(parent.context)
-            .inflate(
-                R.layout.item_tag,
-                parent,
-                false
-            )
+    ): TagsViewHolder = TagsViewHolder(itemView = LayoutInflater
+        .from(parent.context)
+        .inflate(
+            R.layout.item_tag,
+            parent,
+            false
         )
+    )
 
     override fun onBindViewHolder(holder: TagsViewHolder, position: Int) {
         holder.onBind(mTagsList[position])

@@ -1,13 +1,11 @@
 <resources>
     <string name="app_name">TaskManager</string>
-    <string name="title_activity_tasks">TasksActivity</string>
+    <string name="title_activity_tasks" translatable="false">TasksActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="task_list">Task List</string>
     <string name="task_view">Task View</string>
     <string name="task_edit">Edit Task</string>
 
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
     <string name="unfulfilled">Unfulfilled</string>
     <string name="task_is_done">Task Is Done</string>
     <string name="completed">Completed</string>
@@ -21,7 +19,6 @@
     <string name="tags">Tags</string>
     <string name="set_complete">Set Complete</string>
     <string name="set_unfulfilled">Set Unfulfilled</string>
-    <string name="tags_input_hint">tags_input_hint</string>
     <string name="add_task">Add Task</string>
     <string name="save_task">Save Task</string>
 
@@ -40,7 +37,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
-    <string name="notification_title">Task Manager</string>
+    <string name="notification_title" translatable="false">Task Manager</string>
     <string name="notification_description">Task whose deadline is expiring</string>
     <string name="tags_input_separator_hint">Use comma as separator</string>
     <string name="empty_task_title_warning">Please fill task title field</string>

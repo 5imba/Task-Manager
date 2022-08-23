@@ -11,7 +11,7 @@ import com.bogleo.taskmanager.MainActivity
 import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.common.NOTIFICATION_CHANNEL_DEFAULT
 import com.bogleo.taskmanager.common.NOTIFICATION_TASK_EXTRA
-import com.bogleo.taskmanager.data.Task
+import com.bogleo.taskmanager.model.Task
 
 private const val TAG = "NotificationService"
 

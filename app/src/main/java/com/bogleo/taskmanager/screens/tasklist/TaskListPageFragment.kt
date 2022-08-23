@@ -6,25 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bogleo.taskmanager.data.DataListener
 import com.bogleo.taskmanager.common.notification.NotificationHelper
-import com.bogleo.taskmanager.data.Task
+import com.bogleo.taskmanager.model.Task
 import com.bogleo.taskmanager.databinding.FragmentTaskListPageBinding
 import com.bogleo.taskmanager.TasksViewModel
-import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksDiffUtils
-import com.bogleo.taskmanager.screens.tasklist.recycler.tasks.TasksRecyclerAdapter
+import com.bogleo.taskmanager.adapters.recycler.ShellAdapter
+import com.bogleo.taskmanager.adapters.recycler.shells.TaskNoTagsShell
+import com.bogleo.taskmanager.adapters.recycler.shells.TaskWithTagsShell
 
 const val TASK_LIST_PAGE_ARG = "taskListPageArg"
 
 class TaskListPageFragment : Fragment() {
 
-    private val mViewModel: TasksViewModel by activityViewModels()
     private var _binding: FragmentTaskListPageBinding? = null
     private val binding get() = _binding!!
-    private lateinit var taskListAdapter: TasksRecyclerAdapter
+
+    private val mViewModel: TasksViewModel by activityViewModels()
+    private lateinit var recyclerAdapter: ShellAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,29 +34,21 @@ class TaskListPageFragment : Fragment() {
         _binding = FragmentTaskListPageBinding.inflate(inflater, container, false)
 
         // RecyclerView configs
-        taskListAdapter = TasksRecyclerAdapter()
-        binding.recyclerViewTlp.adapter = taskListAdapter
-        binding.recyclerViewTlp.layoutManager = LinearLayoutManager(
-            requireContext(),
-            RecyclerView.VERTICAL,
-            false
-        )
+        recyclerAdapter = ShellAdapter(getShells())
+        with(binding.recyclerViewTlp) {
+            adapter = recyclerAdapter
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                RecyclerView.VERTICAL,
+                false
+            )
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.takeIf { it.containsKey(TASK_LIST_PAGE_ARG) }?.apply {
-            // Callback from adapter
-            taskListAdapter.setOnDataChangeListener(object : DataListener<Task> {
-                override fun onDataChange(data: Task) {
-                    mViewModel.updateTask(task = data) {
-                        NotificationHelper.setTaskNotification(
-                            context = requireContext(),
-                            task = data
-                        )
-                    }
-                }
-            })
             // Observe Task DB data
             mViewModel.readAllData.observe(viewLifecycleOwner) { taskList: List<Task> ->
                 setDataToRecycler(
@@ -67,19 +59,31 @@ class TaskListPageFragment : Fragment() {
         }
     }
 
+    private fun getShells() = listOf(
+        TaskWithTagsShell(::onTaskStateChange),
+        TaskNoTagsShell(::onTaskStateChange)
+    )
+
     private fun setDataToRecycler(taskList: List<Task>, pageNum: Int) {
         // Sort by isDone filter
         val newTaskList = taskList.filter { task: Task ->
             task.isDone == (pageNum == 1)
         }
-        // Calculate changes
-        val diffUtils = TasksDiffUtils(
-            oldList = taskListAdapter.getData(),
-            newList = newTaskList
-        )
-        val diffResult = DiffUtil.calculateDiff(diffUtils)
         // Apply data
-        taskListAdapter.setData(data = newTaskList)
-        diffResult.dispatchUpdatesTo(taskListAdapter)
+        recyclerAdapter.submitList(newTaskList)
+    }
+
+    private fun onTaskStateChange(task: Task) {
+        mViewModel.updateTask(task = task) {
+            NotificationHelper.setTaskNotification(
+                context = requireContext(),
+                task = task
+            )
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -13,8 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.bogleo.taskmanager.common.NOTIFICATION_CHANNEL_DEFAULT
 import com.bogleo.taskmanager.common.NOTIFICATION_TASK_EXTRA
 import com.bogleo.taskmanager.common.notification.NotificationHelper
-import com.bogleo.taskmanager.data.Task
-import com.bogleo.taskmanager.data.change
+import com.bogleo.taskmanager.model.Task
 import com.bogleo.taskmanager.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val task = intent.getParcelableExtra<Task>(NOTIFICATION_TASK_EXTRA)
         if (task != null) {
             mViewModel.updateTask(
-                task = task.change(isDone = true)
+                task = task.copy(isDone = true)
             ) {
                 NotificationHelper.removeNotification(
                     context = this,

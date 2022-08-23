@@ -2,6 +2,7 @@ package com.bogleo.taskmanager.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.bogleo.taskmanager.model.Task
 
 @Dao
 interface TaskDao {

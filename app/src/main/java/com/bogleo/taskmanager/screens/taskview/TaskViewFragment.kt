@@ -15,11 +15,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.common.notification.NotificationHelper
-import com.bogleo.taskmanager.data.change
 import com.bogleo.taskmanager.databinding.FragmentTaskViewBinding
 import com.bogleo.taskmanager.TasksViewModel
+import com.bogleo.taskmanager.common.TextUtils
 
-private const val TAG = "TaskView"
+private val TAG = TaskViewFragment::class.qualifiedName
 
 class TaskViewFragment : Fragment(), MenuProvider {
 
@@ -49,14 +49,14 @@ class TaskViewFragment : Fragment(), MenuProvider {
         binding.taskTitleTextTv.compoundDrawableTintList = ColorStateList.valueOf(task.colorTag)
         binding.dateTextTv.text = task.date
         binding.timeTextTv.text = task.time
-        binding.tagsTextTv.text = task.tags
+        binding.tagsTextTv.text = TextUtils.makeTagString(task.tags)
         binding.setCompleteBtnTv.text = getText(
             if (task.isDone) R.string.set_unfulfilled
             else R.string.set_complete
         )
 
         binding.setCompleteBtnTv.setOnClickListener {
-            val newTask = task.change(isDone = !task.isDone)
+            val newTask = task.copy(isDone = !task.isDone)
             mViewModel.updateTask(task = newTask) {
                 NotificationHelper.setTaskNotification(
                     context = requireContext(),
@@ -73,7 +73,7 @@ class TaskViewFragment : Fragment(), MenuProvider {
         try {
             findNavController().navigate(action)
         } catch (e: Exception) {
-            Log.e(TAG, "Error: ${e.localizedMessage}}")
+            Log.e(TAG, "NavController error: ${e.localizedMessage}}")
         }
     }
 

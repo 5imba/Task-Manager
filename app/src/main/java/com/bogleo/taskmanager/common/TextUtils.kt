@@ -6,6 +6,13 @@ import java.util.*
 
 object TextUtils {
 
+    fun makeTagString(tags: List<String>): String = tags.joinToString(", ")
+
+    fun makeTagList(tagsStr: String): List<String> {
+        val tagList = tagsStr.split(',')
+        return tagList.filter { tag -> tag.isNotEmpty() }.map { tag -> tag.trim() }
+    }
+
     fun makeDateTimeText(
         datePicker: DatePicker,
         timePicker: TimePicker

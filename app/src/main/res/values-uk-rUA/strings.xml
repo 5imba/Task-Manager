@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TaskManager</string>
+    <string name="task_list">Список завдань</string>
+    <string name="task_view">Перегляд завдання</string>
+    <string name="task_edit">Редагування завдання</string>
+    <string name="completed">Виконані</string>
+    <string name="task_is_done">Завдання виконано</string>
+    <string name="unfulfilled">Невиконані</string>
+    <string name="add_new_task">Додати нове завдання</string>
+    <string name="completion_tabs">Вкладки виконаності</string>
+    <string name="task_title">Назва завдання</string>
+    <string name="color_tag">Кольоровий тег</string>
+    <string name="deadline">Дедлайн</string>
+    <string name="date">Дата</string>
+    <string name="time">Час</string>
+    <string name="tags">Теги</string>
+    <string name="set_complete">Встановити виконано</string>
+    <string name="set_unfulfilled">Встановити невиконано</string>
+    <string name="add_task">Додати завдання</string>
+    <string name="save_task">Зберегти задачу</string>
+    <string name="color_tag_yellow">Жовтий кольоровий тег</string>
+    <string name="color_tag_green">Зелений кольоровий тег</string>
+    <string name="color_tag_light_blue">Блакитний кольоровий тег</string>
+    <string name="color_tag_blue">Синій кольоровий тег</string>
+    <string name="color_tag_red">Червоний кольоровий тег</string>
+    <string name="color_tag_orange">Помаранчевий кольоровий тег</string>
+    <string name="color_tag_light_purple">Рожевий кольоровий тег</string>
+    <string name="color_tag_purple">Фіолетовий кольоровий тег</string>
+    <string name="delete_task">Видалати завдання</string>
+    <string name="search_task">Пошук завдання</string>
+    <string name="task_delete_warning">Ви впевнені що хочете видалити</string>
+    <string name="task_deleted">Завдання успішно видалено</string>
+    <string name="yes">Так</string>
+    <string name="no">Ні</string>
+    <string name="notification_description">Дедлайн задачі закінчився</string>
+    <string name="tags_input_separator_hint">Використовуйте кому як роздільник</string>
+    <string name="empty_task_title_warning">Будь ласка, заповніть поле назви завдання</string>
+</resources>

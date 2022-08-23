@@ -30,7 +30,7 @@
             app:destination="@id/taskEditFragment" />
         <argument
             android:name="task"
-            app:argType="com.bogleo.taskmanager.data.Task" />
+            app:argType="com.bogleo.taskmanager.model.Task" />
         <action
             android:id="@+id/action_taskView_to_taskList"
             app:destination="@id/taskList" />
@@ -45,7 +45,7 @@
             app:destination="@id/taskList" />
         <argument
             android:name="task"
-            app:argType="com.bogleo.taskmanager.data.Task" />
+            app:argType="com.bogleo.taskmanager.model.Task" />
     </fragment>
     <fragment
         android:id="@+id/taskAddNewFragment"

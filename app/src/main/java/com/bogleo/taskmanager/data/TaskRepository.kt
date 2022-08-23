@@ -1,6 +1,7 @@
 package com.bogleo.taskmanager.data
 
 import androidx.lifecycle.LiveData
+import com.bogleo.taskmanager.model.Task
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
