@@ -26,7 +26,8 @@
             android:imeOptions="actionNext"
             android:inputType="textImeMultiLine"
             android:minHeight="48dp"
-            tools:ignore="TextContrastCheck" />
+            android:paddingEnd="45dp"
+            tools:ignore="RtlSymmetry,TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
