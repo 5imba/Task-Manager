@@ -7,11 +7,11 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.bogleo.taskmanager.MainActivity
+import com.bogleo.taskmanager.screens.MainActivity
 import com.bogleo.taskmanager.R
 import com.bogleo.taskmanager.common.NOTIFICATION_CHANNEL_DEFAULT
 import com.bogleo.taskmanager.common.NOTIFICATION_TASK_EXTRA
-import com.bogleo.taskmanager.model.Task
+import com.bogleo.taskmanager.data.Task
 
 private const val TAG = "NotificationService"
 

@@ -2,8 +2,8 @@ package com.bogleo.taskmanager.di
 
 import android.content.Context
 import androidx.room.Room
-import com.bogleo.taskmanager.data.TaskDao
-import com.bogleo.taskmanager.data.TaskDatabase
+import com.bogleo.taskmanager.database.TaskDao
+import com.bogleo.taskmanager.database.TaskDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

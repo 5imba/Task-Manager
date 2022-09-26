@@ -7,11 +7,11 @@
 
     <fragment
         android:id="@+id/taskList"
-        android:name="com.bogleo.taskmanager.screens.tasklist.TaskListFragment"
+        android:name="com.bogleo.taskmanager.screens.listmain.TaskListFragment"
         android:label="@string/task_list"
         tools:layout="@layout/fragment_task_list">
         <action
-            android:id="@+id/action_taskList_to_taskView"
+            android:id="@+id/action_taskList_to_taskBrowsing"
             app:destination="@id/taskView" />
         <action
             android:id="@+id/action_taskList_to_taskAddNewFragment"
@@ -22,22 +22,22 @@
     </fragment>
     <fragment
         android:id="@+id/taskView"
-        android:name="com.bogleo.taskmanager.screens.taskview.TaskViewFragment"
+        android:name="com.bogleo.taskmanager.screens.browsing.TaskBrowsingFragment"
         android:label="@string/task_view"
-        tools:layout="@layout/fragment_task_view">
+        tools:layout="@layout/fragment_task_browsing">
         <action
-            android:id="@+id/action_taskView_to_taskEditFragment"
+            android:id="@+id/action_taskBrowsing_to_taskEditFragment"
             app:destination="@id/taskEditFragment" />
+        <action
+            android:id="@+id/action_taskBrowsing_to_taskList"
+            app:destination="@id/taskList" />
         <argument
             android:name="task"
-            app:argType="com.bogleo.taskmanager.model.Task" />
-        <action
-            android:id="@+id/action_taskView_to_taskList"
-            app:destination="@id/taskList" />
+            app:argType="com.bogleo.taskmanager.data.Task" />
     </fragment>
     <fragment
         android:id="@+id/taskEditFragment"
-        android:name="com.bogleo.taskmanager.screens.taskedit.TaskEditFragment"
+        android:name="com.bogleo.taskmanager.screens.edit.TaskEditFragment"
         android:label="@string/task_edit"
         tools:layout="@layout/fragment_task_edit" >
         <action
@@ -45,11 +45,11 @@
             app:destination="@id/taskList" />
         <argument
             android:name="task"
-            app:argType="com.bogleo.taskmanager.model.Task" />
+            app:argType="com.bogleo.taskmanager.data.Task" />
     </fragment>
     <fragment
         android:id="@+id/taskAddNewFragment"
-        android:name="com.bogleo.taskmanager.screens.taskaddnew.TaskAddNewFragment"
+        android:name="com.bogleo.taskmanager.screens.addnew.TaskAddNewFragment"
         android:label="@string/add_new_task"
         tools:layout="@layout/fragment_task_add_new" >
         <action

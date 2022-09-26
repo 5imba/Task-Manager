@@ -20,7 +20,7 @@
             android:name=".common.notification.NotificationReceiver"
             android:enabled="true"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".screens.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_tasks"
             android:theme="@style/Theme.TaskManager.NoActionBar">

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".screens.browsing.TaskBrowsingFragment">
+
+    <TextView
+        android:id="@+id/tvTxtTitleLabel"
+        style="@style/TextMain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/task_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTxtTitle"
+        style="@style/TextMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|start"
+        android:hint="@string/task_title"
+        android:minHeight="48dp"
+        android:textSize="18sp"
+        app:drawableEndCompat="@drawable/ic_circle_fill"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTxtTitleLabel"
+        tools:ignore="RtlSymmetry,TextContrastCheck" />
+
+    <View
+        android:id="@+id/tvViewSeparator1"
+        style="@style/ImageBackground"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTxtTitle" />
+
+    <TextView
+        android:id="@+id/tvTxtDeadlineLabel"
+        style="@style/TextMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/deadline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvViewSeparator1" />
+
+    <TextView
+        android:id="@+id/tvTxtDate"
+        style="@style/TextMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center|start"
+        android:hint="@string/date"
+        android:importantForAutofill="no"
+        android:inputType="none"
+        android:minHeight="48dp"
+        android:textSize="18sp"
+        android:windowSoftInputMode="stateAlwaysHidden"
+        app:drawableEndCompat="@drawable/ic_calendar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTxtDeadlineLabel"
+        tools:ignore="DuplicateSpeakableTextCheck,RtlSymmetry,TextContrastCheck" />
+
+
+    <TextView
+        android:id="@+id/tvTxtTime"
+        style="@style/TextMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:focusable="true"
+        android:gravity="center|start"
+        android:hint="@string/time"
+        android:importantForAutofill="no"
+        android:minHeight="48dp"
+        android:textSize="18sp"
+        app:drawableEndCompat="@drawable/ic_clock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTxtDate"
+        tools:ignore="DuplicateSpeakableTextCheck,RtlSymmetry,TextContrastCheck" />
+
+
+    <View
+        android:id="@+id/tvViewSeparator2"
+        style="@style/ImageBackground"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTxtTime" />
+
+    <TextView
+        android:id="@+id/tvTxtTagsLabel"
+        style="@style/TextMain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/tags"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTxtTime" />
+
+    <TextView
+        android:id="@+id/tvTxtTags"
+        style="@style/TextMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center|start"
+        android:hint="@string/tags"
+        android:minHeight="48dp"
+        android:textSize="18sp"
+        app:drawableEndCompat="@drawable/ic_tags"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTxtTagsLabel"
+        tools:ignore="DuplicateSpeakableTextCheck,RtlSymmetry,TextContrastCheck" />
+
+    <Button
+        android:id="@+id/tvBtnSetComplete"
+        style="@style/MyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="@string/set_complete"
+        android:textAllCaps="false"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
