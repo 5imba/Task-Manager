@@ -29,7 +29,7 @@ class TaskAddNewViewModel : ViewModel() {
                 time = tanPickerTime.getText(),
                 timeMillis = timeMillis,
                 tags = tags,
-                colorTag = tanImgColorTag.tag as Int,
+                colorTag = tanTxtInTitle.tag as Int,
                 isDone = false
             )
         }

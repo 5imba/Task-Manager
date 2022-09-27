@@ -12,6 +12,10 @@
         style="@style/InputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawablePadding="-20dp"
+        app:endIconDrawable="@drawable/ic_circle_fill"
+        app:endIconMode="custom"
+        app:endIconTint="@color/green"
         app:errorIconDrawable="@drawable/empty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,20 +33,6 @@
             android:paddingEnd="45dp"
             tools:ignore="RtlSymmetry,TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/teImgColorTag"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="15dp"
-        android:contentDescription="@string/color_tag"
-        android:focusable="true"
-        android:src="@drawable/ic_circle_fill"
-        app:layout_constraintEnd_toEndOf="@+id/teTxtInTitle"
-        app:layout_constraintTop_toTopOf="@+id/teTxtInTitle"
-        app:tint="@color/teal_200"
-        tools:ignore="ImageContrastCheck" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/teTxtInDeadline"

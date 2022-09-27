@@ -2,6 +2,7 @@ package com.bogleo.taskmanager.screens.edit
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -56,8 +57,8 @@ class TaskEditFragment : Fragment(), MenuProvider {
 
         with(binding) {
             teEdTxtTitle.setText(task.title)
-            teImgColorTag.setColorFilter(task.colorTag)
-            teImgColorTag.tag = task.colorTag
+            teTxtInTitle.setEndIconTintList(ColorStateList.valueOf(task.colorTag))
+            teTxtInTitle.tag = task.colorTag
             teEdTxtDeadline.setText(deadline)
             teEdTxtTags.setText(TextUtils.makeTagString(task.tags))
             teSwitchCompletion.isChecked = task.isDone
@@ -73,9 +74,9 @@ class TaskEditFragment : Fragment(), MenuProvider {
                     else null
             }
             // Color tag Popup
-            teImgColorTag.setOnClickListener {
+            teTxtInTitle.setEndIconOnClickListener {
                 ColorTagPopup.show(
-                    viewAnchor = teImgColorTag,
+                    viewAnchor = teTxtInTitle,
                     layoutInflater = layoutInflater,
                     container = null
                 )

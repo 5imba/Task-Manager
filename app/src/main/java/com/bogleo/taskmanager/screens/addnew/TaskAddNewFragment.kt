@@ -1,6 +1,7 @@
 package com.bogleo.taskmanager.screens.addnew
 
 import android.app.Activity
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -45,47 +46,50 @@ class TaskAddNewFragment : Fragment() {
     }
 
     private fun bindUi() {
-        // Task title show warning on empty
-        binding.tanEdTxtTitle.addTextChangedListener { editable ->
-            binding.tanTxtInTitle.error  =
-                if (editable.isNullOrEmpty()) getString(R.string.empty_task_title_warning)
-                else null
+        with(binding) {
+            // Task title show warning on empty
+            tanEdTxtTitle.addTextChangedListener { editable ->
+                tanTxtInTitle.error  =
+                    if (editable.isNullOrEmpty()) getString(R.string.empty_task_title_warning)
+                    else null
+            }
+            // Set color tag
+            val colorTag = requireContext().getColor(R.color.green)
+            tanTxtInTitle.setEndIconTintList(ColorStateList.valueOf(colorTag))
+            tanTxtInTitle.tag = colorTag
+            // Color tag Popup
+            tanTxtInTitle.setEndIconOnClickListener {
+                ColorTagPopup.show(
+                    viewAnchor = tanTxtInTitle,
+                    layoutInflater = layoutInflater,
+                    container = null
+                )
+            }
+            // Date & Time pickers visibility
+            tanFrameDeadlineContainer.setOnClickListener {
+                setDeadlinePickersVisibility(isFocused = true)
+                tanEdTxtDeadline.requestFocus()
+            }
+            tanEdTxtDeadline.setOnFocusChangeListener { _, isFocused ->
+                setDeadlinePickersVisibility(isFocused = isFocused)
+            }
+            // Deadline text
+            tanPickerDate.setOnDateChangedListener { _, _, _, _ ->
+                setDeadlineText()
+            }
+            tanPickerTime.setOnTimeChangedListener { _, _, _ ->
+                setDeadlineText()
+            }
+            // Tags hint visibility
+            tanTxtInTags.errorIconDrawable = null
+            tanEdTxtTags.setOnFocusChangeListener { _, isFocused ->
+                tanTxtInTags.error =
+                    if (isFocused) getString(R.string.tags_input_separator_hint)
+                    else null
+            }
+            // Add Task to DB
+            tanBtnAddTask.setOnClickListener { addTask() }
         }
-        // Set color tag
-        val colorTag = binding.tanImgColorTag.imageTintList?.defaultColor!!.toInt()
-        binding.tanImgColorTag.tag = colorTag
-        // Color tag Popup
-        binding.tanImgColorTag.setOnClickListener {
-            ColorTagPopup.show(
-                viewAnchor = binding.tanImgColorTag,
-                layoutInflater = layoutInflater,
-                container = null
-            )
-        }
-        // Date & Time pickers visibility
-        binding.tanFrameDeadlineContainer.setOnClickListener {
-            setDeadlinePickersVisibility(isFocused = true)
-            binding.tanEdTxtDeadline.requestFocus()
-        }
-        binding.tanEdTxtDeadline.setOnFocusChangeListener { _, isFocused ->
-            setDeadlinePickersVisibility(isFocused = isFocused)
-        }
-        // Deadline text
-        binding.tanPickerDate.setOnDateChangedListener { _, _, _, _ ->
-            setDeadlineText()
-        }
-        binding.tanPickerTime.setOnTimeChangedListener { _, _, _ ->
-            setDeadlineText()
-        }
-        // Tags hint visibility
-        binding.tanTxtInTags.errorIconDrawable = null
-        binding.tanEdTxtTags.setOnFocusChangeListener { _, isFocused ->
-            binding.tanTxtInTags.error =
-                if (isFocused) getString(R.string.tags_input_separator_hint)
-                else null
-        }
-        // Add Task to DB
-        binding.tanBtnAddTask.setOnClickListener { addTask() }
     }
 
     private fun setDeadlineText() {

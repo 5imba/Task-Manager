@@ -14,24 +14,26 @@ class TaskEditViewModel : ViewModel() {
     }
 
     fun buildTask(currentTask: Task, binding: FragmentTaskEditBinding): Task {
-        val timeMillis = TextUtils.getMillisFromDateTime(
-            datePicker = binding.tePickerDate,
-            timePicker = binding.tePickerTime
-        )
-        val tags = TextUtils.makeTagList(
-            tagsStr = binding.teEdTxtTags.text.toString()
-        )
+        with(binding) {
+            val timeMillis = TextUtils.getMillisFromDateTime(
+                datePicker = tePickerDate,
+                timePicker = tePickerTime
+            )
+            val tags = TextUtils.makeTagList(
+                tagsStr = teEdTxtTags.text.toString()
+            )
 
-        return Task(
-            id = currentTask.id,
-            title = binding.teEdTxtTitle.text.toString(),
-            date = binding.tePickerDate.getText(),
-            time = binding.tePickerTime.getText(),
-            timeMillis = timeMillis,
-            tags = tags,
-            colorTag = binding.teImgColorTag.tag as Int,
-            isDone = binding.teSwitchCompletion.isChecked
-        )
+            return Task(
+                id = currentTask.id,
+                title = teEdTxtTitle.text.toString(),
+                date = tePickerDate.getText(),
+                time = tePickerTime.getText(),
+                timeMillis = timeMillis,
+                tags = tags,
+                colorTag = teTxtInTitle.tag as Int,
+                isDone = teSwitchCompletion.isChecked
+            )
+        }
     }
 
 }
